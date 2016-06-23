@@ -34,7 +34,7 @@
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
         
-        <ListView HorizontalAlignment="Left" Height="224" Margin="4,4,4,4" Grid.RowSpan="2" VerticalAlignment="Top" Width="233" ItemsSource="{Binding HostSpecs}">
+        <ListView Margin="4,4,4,4" Grid.RowSpan="2" ItemsSource="{Binding HostSpecs}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="130" />
