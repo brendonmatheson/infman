@@ -43,5 +43,14 @@
             </ListView.View>
         </ListView>
 
+        <ListView Grid.Column="1" Grid.RowSpan="2" Margin="4,4,4,4" ItemsSource="{Binding Infrastructures}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="90" />
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding InfrastructureTypeName}" Width="90" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>

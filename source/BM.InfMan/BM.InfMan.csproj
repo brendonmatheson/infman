@@ -34,6 +34,13 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="impl\XmlFileInfManRepository.cs" />
     <Compile Include="InfManRepository.cs" />
+    <Compile Include="infrastructure\impl\VmwareEsxiEntity.cs" />
+    <Compile Include="infrastructure\impl\VmwareEsxiFactory.cs" />
+    <Compile Include="infrastructure\impl\VmwareEsxiInsert.cs" />
+    <Compile Include="infrastructure\InfrastructureEntity.cs" />
+    <Compile Include="infrastructure\InfrastructureFactory.cs" />
+    <Compile Include="infrastructure\InfrastructureInsert.cs" />
+    <Compile Include="infrastructure\InfrastructureType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="spec\HostSpecEntity.cs" />
     <Compile Include="spec\HostSpecFactory.cs" />

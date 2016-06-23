@@ -19,6 +19,8 @@
 namespace cc.bren.infman
 {
     using cc.bren.infman.spec;
+    using infrastructure;
+    using infrastructure.impl;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Collections.Generic;
@@ -89,6 +91,54 @@ namespace cc.bren.infman
             Asserts.AssertHostSpecEntity(
                 "foo", 4 * Constants.Size1GB,
                 result, "result");
+        }
+
+        //
+        // InfrastructureInsert
+        //
+
+        protected void InfrastructureList_FilterAll_Succeeds(
+            InfManRepository infManRepository)
+        {
+            if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
+
+            // Setup
+            InfrastructureEntity o1 = infManRepository.InfrastructureInsert(VmwareEsxiFactory.Insert(
+                "esxi01",
+                "1.1.1.1"));
+
+            InfrastructureEntity o2 = infManRepository.InfrastructureInsert(VmwareEsxiFactory.Insert(
+                "esxi02",
+                "2.2.2.2"));
+
+            // Execute
+            IList<InfrastructureEntity> result = infManRepository.InfrastructureList();
+
+            // Verify
+            Assert.IsNotNull(result, "result");
+            Assert.AreEqual(2, result.Count, "result.count");
+
+            Asserts.AssertVmwareEsxiEntity("esxi01", "1.1.1.1", result[0], "result[0]");
+            Asserts.AssertVmwareEsxiEntity("esxi02", "2.2.2.2", result[1], "result[1]");
+        }
+
+        protected void InfrastructureInsert_ValidRequest_Succeeds(
+            InfManRepository infManRepository)
+        {
+            if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
+
+            // Setup
+            InfrastructureInsert request = VmwareEsxiFactory.Insert(
+                "esxi01",
+                "1.2.3.4");
+
+            // Execute
+            InfrastructureEntity inserted = infManRepository.InfrastructureInsert(request);
+
+            // Verify
+            Asserts.AssertVmwareEsxiEntity(
+                "esxi01", "1.2.3.4",
+                inserted, "inserted");
         }
 
     }

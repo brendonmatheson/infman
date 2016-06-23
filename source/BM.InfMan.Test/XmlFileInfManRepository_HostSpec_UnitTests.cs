@@ -66,5 +66,21 @@ namespace cc.bren.infman
         {
             base.HostSpecInsert_ValidRequest_Succeeds(TC.InfManRepository);
         }
+
+        //
+        // InfrastructureInsert
+        //
+
+        [TestMethod]
+        public void InfrastructureList_FilterAll_Succeeds()
+        {
+            base.InfrastructureList_FilterAll_Succeeds(TC.InfManRepository);
+        }
+
+        [TestMethod]
+        public void InfrastructureInsert_ValidRequest_Succeeds()
+        {
+            base.InfrastructureInsert_ValidRequest_Succeeds(TC.InfManRepository);
+        }
     }
 }

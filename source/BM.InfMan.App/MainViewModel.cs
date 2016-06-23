@@ -18,6 +18,7 @@
 
 namespace cc.bren.infman
 {
+    using cc.bren.infman.infrastructure;
     using cc.bren.infman.spec;
     using System;
     using System.Collections.Generic;
@@ -35,18 +36,26 @@ namespace cc.bren.infman
             _infManRepository = infManRepository;
 
             this.HostSpecs = new ObservableCollection<HostSpecViewModel>();
+            this.Infrastructures = new ObservableCollection<InfrastructureListItemViewModel>();
 
             this.Refresh();
         }
 
-        public ObservableCollection<HostSpecViewModel> HostSpecs { get; set; }
+        public ObservableCollection<HostSpecViewModel> HostSpecs { get; private set; }
+
+        public ObservableCollection<InfrastructureListItemViewModel> Infrastructures { get; private set; }
 
         private void Refresh()
         {
+            // HostSpecs
             IList<HostSpecEntity> hostSpecs = _infManRepository.HostSpecList(HostSpecFilter.All());
-
             this.HostSpecs.Clear();
             this.HostSpecs.AddRange(hostSpecs, item => item.ToViewModel());
+
+            // Infrsatructures
+            IList<InfrastructureEntity> infrastructures = _infManRepository.InfrastructureList();
+            this.Infrastructures.Clear();
+            this.Infrastructures.AddRange(infrastructures, item => item.ToListItemViewModel());
         }
     }
 }

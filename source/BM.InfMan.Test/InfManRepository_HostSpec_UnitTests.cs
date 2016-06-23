@@ -41,5 +41,13 @@ namespace cc.bren.infman
 
         void HostSpecInsert_ValidRequest_Succeeds();
 
+        //
+        // InfrastructureInsert
+        //
+
+        void InfrastructureList_FilterAll_Succeeds();
+
+        void InfrastructureInsert_ValidRequest_Succeeds();
+
     }
 }

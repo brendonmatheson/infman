@@ -18,6 +18,8 @@
 
 namespace cc.bren.infman
 {
+    using cc.bren.infman.infrastructure;
+    using cc.bren.infman.infrastructure.impl;
     using cc.bren.infman.spec;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
@@ -55,5 +57,90 @@ namespace cc.bren.infman
             Assert.AreEqual(expectedName, actual.Name, name + ".Name");
             Assert.AreEqual(expectedRamBytes, actual.RamBytes, name + ".RamBytes");
         }
+
+        //
+        // Infrastructure
+        //
+
+        public static void AssertInfrastructureEntity(
+            Guid expectedInfrastructureId,
+            InfrastructureType expectedInfrastructureType,
+            string expectedName,
+            InfrastructureEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Assert.IsNotNull(actual, name);
+            Assert.AreEqual(expectedInfrastructureId, actual.InfrastructureId, name + ".infrastructureId");
+
+            Asserts.AssertInfrastructureEntity(
+                expectedInfrastructureType,
+                expectedName,
+                actual,
+                name);
+        }
+
+        public static void AssertInfrastructureEntity(
+            InfrastructureType expectedInfrastructureType,
+            string expectedName,
+            InfrastructureEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Assert.IsNotNull(actual, name);
+            Assert.AreEqual(expectedInfrastructureType, actual.InfrastructureType, name + ".infrastructureType");
+            Assert.AreEqual(expectedName, actual.Name, name + ".name");
+        }
+
+        //
+        // VmwareEsxi
+        //
+
+        public static void AssertVmwareEsxiEntity(
+            Guid expectedInfrastructureId,
+            string expectedName,
+            string expectedIpAddress,
+            InfrastructureEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Asserts.AssertInfrastructureEntity(
+                expectedInfrastructureId,
+                InfrastructureType.VmwareEsxi,
+                expectedName,
+                actual,
+                name);
+
+            Assert.IsInstanceOfType(actual, typeof(VmwareEsxiEntity), name + ".type");
+
+            VmwareEsxiEntity actualT = (VmwareEsxiEntity)actual;
+
+            Assert.AreEqual(expectedIpAddress, actualT.IpAddress, name + ".IpAddress");
+        }
+
+        public static void AssertVmwareEsxiEntity(
+            string expectedName,
+            string expectedIpAddress,
+            InfrastructureEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Asserts.AssertInfrastructureEntity(
+                InfrastructureType.VmwareEsxi,
+                expectedName,
+                actual,
+                name);
+
+            Assert.IsInstanceOfType(actual, typeof(VmwareEsxiEntity), name + ".type");
+
+            VmwareEsxiEntity actualT = (VmwareEsxiEntity)actual;
+
+            Assert.AreEqual(expectedIpAddress, actualT.IpAddress, name + ".IpAddress");
+        }
+
     }
 }
