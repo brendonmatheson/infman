@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Asserts.cs" />
     <Compile Include="BaseInfManRepository_HostSpec_UnitTests.cs" />
     <Compile Include="InfManRepository_HostSpec_UnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -16,45 +16,25 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.spec
+namespace cc.bren.infman
 {
+    using cc.bren.infman.spec;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
 
-    public class HostSpecFactory : HostSpecEntity, HostSpecInsert
+    public static class Asserts
     {
-        public static HostSpecEntity Entity(
-            Guid hostSpecId,
-            string name)
-        {
-            return new HostSpecFactory(hostSpecId, name);
-        }
-
-        private HostSpecFactory(
-            Guid hostSpecId,
+        public static void AssertHostSpecEntity(
+            Guid expectedHostSpecId,
+            string expectedName,
+            HostSpecEntity actual,
             string name)
         {
             if (name == null) { throw new ArgumentNullException("name"); }
 
-            this.HostSpecId = hostSpecId;
-            this.Name = name;
+            Assert.IsNotNull(actual, name);
+            Assert.AreEqual(expectedHostSpecId, actual.HostSpecId, name + ".HostSpecId");
+            Assert.AreEqual(expectedName, actual.Name, name + ".Name");
         }
-
-        public static HostSpecInsert Insert(
-            string name)
-        {
-            return new HostSpecFactory(name);
-        }
-
-        public HostSpecFactory(
-            string name)
-        {
-            if (name == null) { throw new ArgumentNullException("name"); }
-
-            this.Name = name;
-        }
-
-        public Guid HostSpecId { get; private set; }
-
-        public string Name { get; private set; }
     }
 }

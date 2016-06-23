@@ -18,8 +18,12 @@
 
 namespace cc.bren.infman.spec
 {
+    using System;
+
     public interface HostSpecEntity
     {
+        Guid HostSpecId { get; }
+
         string Name { get; }
     }
 }

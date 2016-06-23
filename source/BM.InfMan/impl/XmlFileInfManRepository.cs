@@ -52,7 +52,32 @@ namespace cc.bren.infman.impl
         {
             if (filter == null) { throw new ArgumentNullException("filter"); }
 
-            throw new NotImplementedException();
+            IList<HostSpecEntity> result = new List<HostSpecEntity>();
+
+            DirectoryInfo hostSpecsDir = this.HostSpecsDirectory();
+            DirectoryInfo[] hostSpecDirs = hostSpecsDir.GetDirectories();
+
+            foreach(DirectoryInfo hostSpecDir in hostSpecDirs)
+            {
+                FileInfo hostSpecFile = this.HostSpecFile(hostSpecDir);
+
+                XElement hostXe = XElement.Load(hostSpecFile.FullName);
+
+                Guid hostSpecId = Guid.Empty;
+                string name = null;
+
+                foreach(XAttribute attr in hostXe.Attributes())
+                {
+                    if (attr.Name == "host_spec_id") hostSpecId = Guid.Parse(attr.Value);
+                    if (attr.Name == "name") name = attr.Value;
+                }
+
+                result.Add(HostSpecFactory.Entity(
+                    hostSpecId,
+                    name));
+            }
+
+            return result;
         }
 
         public HostSpecEntity HostSpecInsert(HostSpecInsert request)
@@ -71,7 +96,7 @@ namespace cc.bren.infman.impl
                 request.Name,
                 true);
 
-            FileInfo hostSpecFile = hostSpecDir.File("host_spec.xml");
+            FileInfo hostSpecFile = this.HostSpecFile(hostSpecDir);
 
             hostXe.Save(hostSpecFile.FullName);
 
@@ -111,6 +136,14 @@ namespace cc.bren.infman.impl
             }
 
             return result;
+        }
+
+        private FileInfo HostSpecFile(
+            DirectoryInfo hostSpecDir)
+        {
+            if (hostSpecDir == null) { throw new ArgumentNullException("hostSpecDir"); }
+
+            return hostSpecDir.File("host_spec.xml");
         }
 
         private string FilenameSafe(string value)

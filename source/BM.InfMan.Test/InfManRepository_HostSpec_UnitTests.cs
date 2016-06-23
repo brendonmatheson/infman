@@ -30,6 +30,12 @@ namespace cc.bren.infman
         void HostSpecSingle_NullFilter_Throws();
 
         //
+        // HostSpecList
+        //
+
+        void HostSpecList_FilterAll_Succeeds();
+
+        //
         // HostSpecInsert
         //
 

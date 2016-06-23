@@ -16,11 +16,13 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+using System;
 namespace cc.bren.infman
 {
     using cc.bren.infman.spec;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
+    using System.Collections.Generic;
     using System.IO;
 
     public abstract class BaseInfManRepository_HostSpec_UnitTests
@@ -38,6 +40,32 @@ namespace cc.bren.infman
         protected void HostSpecSingle_NullFilter_Throws()
         {
 
+        }
+
+        //
+        // HostSpecList
+        //
+
+        protected void HostSpecList_FilterAll_Succeeds(
+            InfManRepository infManRepository)
+        {
+            if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
+
+            // Setup
+            HostSpecInsert hs1 = HostSpecFactory.Insert("foo");
+            HostSpecEntity e1 = infManRepository.HostSpecInsert(hs1);
+            HostSpecInsert hs2 = HostSpecFactory.Insert("bar");
+            HostSpecEntity e2 = infManRepository.HostSpecInsert(hs2);
+
+            // Execute
+            IList<HostSpecEntity> result = infManRepository.HostSpecList(HostSpecFilter.All());
+
+            // Verify
+            Assert.IsNotNull(result, "result");
+            Assert.AreEqual(2, result.Count, "result.Count");
+
+            Asserts.AssertHostSpecEntity(e2.HostSpecId, "bar", result[0], "result[0]");
+            Asserts.AssertHostSpecEntity(e1.HostSpecId, "foo", result[1], "result[1]");
         }
 
         //

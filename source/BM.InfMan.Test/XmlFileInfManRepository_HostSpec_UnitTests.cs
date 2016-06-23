@@ -48,6 +48,16 @@ namespace cc.bren.infman
         }
 
         //
+        // HostSpecList
+        //
+
+        [TestMethod]
+        public void HostSpecList_FilterAll_Succeeds()
+        {
+            base.HostSpecList_FilterAll_Succeeds(TC.InfManRepository);
+        }
+
+        //
         // HostSpecInsert
         //
 
