@@ -25,5 +25,7 @@ namespace cc.bren.infman.spec
         Guid HostSpecId { get; }
 
         string Name { get; }
+
+        long RamBytes { get; }
     }
 }

@@ -38,6 +38,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="130" />
+                    <GridViewColumn Header="RAM" DisplayMemberBinding="{Binding RamDisplay}" Width="50" />
                 </GridView>
             </ListView.View>
         </ListView>

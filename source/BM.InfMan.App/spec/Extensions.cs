@@ -28,7 +28,8 @@ namespace cc.bren.infman.spec
 
             return new HostSpecViewModel(
                 entity.HostSpecId,
-                entity.Name);
+                entity.Name,
+                Utilities.SizeDisplay(entity.RamBytes));
         }
     }
 }

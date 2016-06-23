@@ -24,37 +24,45 @@ namespace cc.bren.infman.spec
     {
         public static HostSpecEntity Entity(
             Guid hostSpecId,
-            string name)
+            string name,
+            long ramBytes)
         {
-            return new HostSpecFactory(hostSpecId, name);
+            return new HostSpecFactory(hostSpecId, name, ramBytes);
         }
 
         private HostSpecFactory(
             Guid hostSpecId,
-            string name)
+            string name,
+            long ramBytes)
         {
             if (name == null) { throw new ArgumentNullException("name"); }
 
             this.HostSpecId = hostSpecId;
             this.Name = name;
+            this.RamBytes = ramBytes;
         }
 
         public static HostSpecInsert Insert(
-            string name)
+            string name,
+            long ramBytes)
         {
-            return new HostSpecFactory(name);
+            return new HostSpecFactory(name, ramBytes);
         }
 
         public HostSpecFactory(
-            string name)
+            string name,
+            long ramBytes)
         {
             if (name == null) { throw new ArgumentNullException("name"); }
 
             this.Name = name;
+            this.RamBytes = ramBytes;
         }
 
         public Guid HostSpecId { get; private set; }
 
         public string Name { get; private set; }
+
+        public long RamBytes { get; private set; }
     }
 }

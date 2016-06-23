@@ -16,14 +16,12 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-using System;
 namespace cc.bren.infman
 {
     using cc.bren.infman.spec;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Collections.Generic;
-    using System.IO;
 
     public abstract class BaseInfManRepository_HostSpec_UnitTests
     {
@@ -52,9 +50,9 @@ namespace cc.bren.infman
             if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
 
             // Setup
-            HostSpecInsert hs1 = HostSpecFactory.Insert("foo");
+            HostSpecInsert hs1 = HostSpecFactory.Insert("foo", Constants.Size1GB);
             HostSpecEntity e1 = infManRepository.HostSpecInsert(hs1);
-            HostSpecInsert hs2 = HostSpecFactory.Insert("bar");
+            HostSpecInsert hs2 = HostSpecFactory.Insert("bar", 500 * Constants.Size1MB);
             HostSpecEntity e2 = infManRepository.HostSpecInsert(hs2);
 
             // Execute
@@ -64,8 +62,12 @@ namespace cc.bren.infman
             Assert.IsNotNull(result, "result");
             Assert.AreEqual(2, result.Count, "result.Count");
 
-            Asserts.AssertHostSpecEntity(e2.HostSpecId, "bar", result[0], "result[0]");
-            Asserts.AssertHostSpecEntity(e1.HostSpecId, "foo", result[1], "result[1]");
+            Asserts.AssertHostSpecEntity(
+                e2.HostSpecId, e2.Name, e2.RamBytes,
+                result[0], "result[0]");
+            Asserts.AssertHostSpecEntity(
+                e1.HostSpecId, e1.Name, e1.RamBytes,
+                result[1], "result[1]");
         }
 
         //
@@ -78,13 +80,15 @@ namespace cc.bren.infman
             if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
 
             // Setup
-            HostSpecInsert request = HostSpecFactory.Insert("foo");
+            HostSpecInsert request = HostSpecFactory.Insert("foo", 4 * Constants.Size1GB);
 
             // Execute
             HostSpecEntity result = infManRepository.HostSpecInsert(request);
 
             // Verify
-            Assert.IsNotNull(result, "result");
+            Asserts.AssertHostSpecEntity(
+                "foo", 4 * Constants.Size1GB,
+                result, "result");
         }
 
     }

@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="impl\XmlFileInfManRepository.cs" />
     <Compile Include="InfManRepository.cs" />
@@ -38,6 +39,7 @@
     <Compile Include="spec\HostSpecFactory.cs" />
     <Compile Include="spec\HostSpecFilter.cs" />
     <Compile Include="spec\HostSpecInsert.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

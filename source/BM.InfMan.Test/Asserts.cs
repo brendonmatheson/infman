@@ -27,6 +27,7 @@ namespace cc.bren.infman
         public static void AssertHostSpecEntity(
             Guid expectedHostSpecId,
             string expectedName,
+            long expectedRamBytes,
             HostSpecEntity actual,
             string name)
         {
@@ -34,7 +35,25 @@ namespace cc.bren.infman
 
             Assert.IsNotNull(actual, name);
             Assert.AreEqual(expectedHostSpecId, actual.HostSpecId, name + ".HostSpecId");
+
+            Asserts.AssertHostSpecEntity(
+                expectedName,
+                expectedRamBytes,
+                actual,
+                name);
+        }
+
+        public static void AssertHostSpecEntity(
+            string expectedName,
+            long expectedRamBytes,
+            HostSpecEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Assert.IsNotNull(actual, name);
             Assert.AreEqual(expectedName, actual.Name, name + ".Name");
+            Assert.AreEqual(expectedRamBytes, actual.RamBytes, name + ".RamBytes");
         }
     }
 }

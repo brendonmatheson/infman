@@ -24,16 +24,20 @@ namespace cc.bren.infman.spec
     {
         public HostSpecViewModel(
             Guid hostSpecId,
-            string name)
+            string name,
+            string ramDisplay)
         {
             if (name == null) { throw new ArgumentNullException("name"); }
 
             this.HostSpecId = hostSpecId;
             this.Name = name;
+            this.RamDisplay = ramDisplay;
         }
 
         public Guid HostSpecId { get; private set; }
 
         public string Name { get; private set; }
+
+        public string RamDisplay { get; private set; }
     }
 }

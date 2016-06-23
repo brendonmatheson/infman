@@ -63,16 +63,19 @@ namespace cc.bren.infman.impl
 
                 Guid hostSpecId = Guid.Empty;
                 string name = null;
+                long ramBytes = 0;
 
                 foreach(XAttribute attr in hostXe.Attributes())
                 {
                     if (attr.Name == "host_spec_id") hostSpecId = Guid.Parse(attr.Value);
                     if (attr.Name == "name") name = attr.Value;
+                    if (attr.Name == "ram_bytes") ramBytes = long.Parse(attr.Value);
                 }
 
                 result.Add(HostSpecFactory.Entity(
                     hostSpecId,
-                    name));
+                    name,
+                    ramBytes));
             }
 
             return result;
@@ -87,7 +90,8 @@ namespace cc.bren.infman.impl
             XElement hostXe = new XElement(
                 "hostspec",
                 new XAttribute("host_spec_id", hostSpecId.ToString()),
-                new XAttribute("name", request.Name));
+                new XAttribute("name", request.Name),
+                new XAttribute("ram_bytes", request.RamBytes.ToString()));
 
             DirectoryInfo hostSpecDir = this.HostSpecDirectory(
                 hostSpecId,
@@ -100,7 +104,8 @@ namespace cc.bren.infman.impl
 
             return HostSpecFactory.Entity(
                 hostSpecId,
-                request.Name);
+                request.Name,
+                request.RamBytes);
         }
 
         //

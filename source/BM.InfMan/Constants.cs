@@ -16,12 +16,13 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.spec
+namespace cc.bren.infman
 {
-    public interface HostSpecInsert
+    public static class Constants
     {
-        string Name { get; }
-
-        long RamBytes { get; }
+        public static readonly long Size1KB = 1024;
+        public static readonly long Size1MB = 1024 * Size1KB;
+        public static readonly long Size1GB = 1024 * Size1MB;
+        public static readonly long Size1TB = 1024 * Size1GB;
     }
 }
