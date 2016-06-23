@@ -1,2 +1,5 @@
+*.suo
 /source/.vs
 /source/TestResults
+/source/BM.InfMan.App/obj
+/source/BM.InfMan.App/bin

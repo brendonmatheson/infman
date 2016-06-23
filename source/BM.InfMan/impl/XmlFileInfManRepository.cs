@@ -26,8 +26,6 @@ namespace cc.bren.infman.impl
 {
     public class XmlFileInfManRepository : InfManRepository
     {
-        private static readonly string NS_HOST = "http://bren.cc/infman/hostspec";
-
         private DirectoryInfo _storageRoot;
 
         public XmlFileInfManRepository(DirectoryInfo storageRoot)
