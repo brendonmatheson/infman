@@ -21,9 +21,9 @@ namespace cc.bren.infman.framework.xmlrepository
     using System;
     using System.IO;
 
-    public class XmlRepositoryConnection
+    public class XrConnection
     {
-        public XmlRepositoryConnection(
+        public XrConnection(
             DirectoryInfo storageRoot,
             string name)
         {

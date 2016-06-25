@@ -16,13 +16,27 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.framework.xmlrepository
-{
-    using System;
-    using System.Xml.Linq;
+using cc.bren.infman.framework;
+using System;
 
-    public interface XmlQueryMapping<TEntity> : XmlLoadMapping<TEntity>
+namespace cc.bren.infman.infrastructure
+{
+    public class InfrastructureFilter : Filter<InfrastructureEntity>
     {
-        Func<XElement, TEntity> Deser { get; }
+        public static InfrastructureFilter All()
+        {
+            return new InfrastructureFilter();
+        }
+
+        private InfrastructureFilter()
+        {
+        }
+
+        public bool Matches(InfrastructureEntity entity)
+        {
+            if (entity == null) { throw new ArgumentNullException("entity"); }
+
+            return true;
+        }
     }
 }

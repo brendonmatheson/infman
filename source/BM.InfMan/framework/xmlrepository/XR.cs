@@ -26,11 +26,12 @@ namespace cc.bren.infman.framework.xmlrepository
     public static class XR
     {
         public static IList<TEntity> List<TEntity, TFilter>(
-            XmlRepositoryConnection conn,
-            TFilter filter,
-            XmlQueryMapping<TEntity> mapping) where TFilter : Filter<TEntity>
+            XrConnection conn,
+            XrQueryMapping<TEntity> mapping,
+            TFilter filter) where TFilter : Filter<TEntity>
         {
             if (conn == null) { throw new ArgumentNullException("conn"); }
+            if (mapping == null) { throw new ArgumentNullException("mapping"); }
             if (filter == null) { throw new ArgumentNullException("filter"); }
 
             IList<TEntity> result = new List<TEntity>();
@@ -54,8 +55,8 @@ namespace cc.bren.infman.framework.xmlrepository
         }
 
         public static TEntity Insert<TEntity, TInsert>(
-            XmlRepositoryConnection conn,
-            XmlInsertMapping<TEntity, TInsert> mapping,
+            XrConnection conn,
+            XrInsertMapping<TEntity, TInsert> mapping,
             TInsert request)
         {
             if (conn == null) { throw new ArgumentNullException("conn"); }
@@ -79,8 +80,8 @@ namespace cc.bren.infman.framework.xmlrepository
         }
 
         public static TEntity LoadEntity<TEntity>(
-            XmlRepositoryConnection conn,
-            XmlQueryMapping<TEntity> mapping,
+            XrConnection conn,
+            XrQueryMapping<TEntity> mapping,
             DirectoryInfo entityDir)
         {
             if (conn == null) { throw new ArgumentNullException("conn"); }
@@ -99,7 +100,7 @@ namespace cc.bren.infman.framework.xmlrepository
         }
 
         private static DirectoryInfo CollectionDir(
-            XmlRepositoryConnection conn)
+            XrConnection conn)
         {
             if (conn == null) { throw new ArgumentNullException("conn"); }
 
@@ -107,15 +108,15 @@ namespace cc.bren.infman.framework.xmlrepository
         }
 
         private static DirectoryInfo EntityDir<TEntity>(
-            XmlRepositoryConnection conn,
-            XmlLoadMapping<TEntity> mapping,
+            XrConnection conn,
+            XrLoadMapping<TEntity> mapping,
             TEntity entity)
         {
             if (conn == null) { throw new ArgumentNullException("conn"); }
             if (mapping == null) { throw new ArgumentNullException("mapping"); }
             if (entity == null) { throw new ArgumentNullException("entity"); }
 
-            string name = mapping.NameMapper(entity);
+            string name = mapping.MapName(entity);
 
             DirectoryInfo result = XR
                 .CollectionDir(conn)
@@ -131,7 +132,7 @@ namespace cc.bren.infman.framework.xmlrepository
         }
 
         private static FileInfo EntityFile(
-            XmlRepositoryConnection conn,
+            XrConnection conn,
 
             DirectoryInfo entityDir)
         {
