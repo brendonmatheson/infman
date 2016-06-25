@@ -19,12 +19,23 @@
 namespace cc.bren.infman.framework.xmlrepository
 {
     using System;
-    using System.Xml.Linq;
+    using System.IO;
 
-    public interface XmlInsertMapping<TEntity, TInsert> : XmlLoadMapping<TEntity>
+    public class XrConnection
     {
-        Func<Guid, TInsert, TEntity> BuildNew { get; }
+        public XrConnection(
+            DirectoryInfo storageRoot,
+            string name)
+        {
+            if (storageRoot == null) { throw new ArgumentNullException("storageRoot"); }
+            if (name == null) { throw new ArgumentNullException("name"); }
 
-        Func<TEntity, XElement> Ser { get; }
+            this.StorageRoot = storageRoot;
+            this.Name = name;
+        }
+
+        public DirectoryInfo StorageRoot { get; private set; }
+
+        public string Name { get; private set; }
     }
 }

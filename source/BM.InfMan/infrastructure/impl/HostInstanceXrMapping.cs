@@ -22,14 +22,14 @@ namespace cc.bren.infman.infrastructure.impl
     using System;
     using System.Xml.Linq;
 
-    public class HostInstanceXmlMapping : XmlMapping<HostInstanceEntity, HostInstanceInsert>
+    public class HostInstanceXrMapping : XrMapping<HostInstanceEntity, HostInstanceInsert>
     {
         private Func<HostInstanceEntity, string> _nameMapper;
         private Func<Guid, HostInstanceInsert, HostInstanceEntity> _buildNew;
         private Func<HostInstanceEntity, XElement> _ser;
         private Func<XElement, HostInstanceEntity> _deser;
 
-        public HostInstanceXmlMapping()
+        public HostInstanceXrMapping()
         {
             _nameMapper = e => e.Name + "_" + e.HostInstanceId.ToString().Substring(0, 8);
             _buildNew = (id, insert) => HostInstanceFactory.Entity(

@@ -22,9 +22,9 @@ namespace cc.bren.infman.framework.xmlrepository
     /// A convenience contract that combines the XmlQueryMapping and XmlInsertMapping contracts together so that they
     /// can be implemented in one hit.
     /// </summary>
-    public interface XmlMapping<TEntity, TInsert> :
-        XmlQueryMapping<TEntity>,
-        XmlInsertMapping<TEntity, TInsert>
+    public interface XrMapping<TEntity, TInsert> :
+        XrQueryMapping<TEntity>,
+        XrInsertMapping<TEntity, TInsert>
     {
     }
 }

@@ -19,10 +19,9 @@
 namespace cc.bren.infman.framework.xmlrepository
 {
     using System;
-    using System.Xml.Linq;
 
-    public interface XmlQueryMapping<TEntity> : XmlLoadMapping<TEntity>
+    public interface XrLoadMapping<TEntity>
     {
-        Func<XElement, TEntity> Deser { get; }
+        Func<TEntity, string> NameMapper { get; }
     }
 }

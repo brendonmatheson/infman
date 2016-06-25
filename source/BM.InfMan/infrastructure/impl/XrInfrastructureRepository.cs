@@ -27,17 +27,17 @@ namespace cc.bren.infman.impl
     using System.Linq;
     using System.Xml.Linq;
 
-    public class XmlInfrastructureRepository : InfrastructureRepository
+    public class XrInfrastructureRepository : InfrastructureRepository
     {
         private DirectoryInfo _storageRoot;
-        private XmlRepositoryConnection _hostInstanceConn;
+        private XrConnection _hostInstanceConn;
 
-        public XmlInfrastructureRepository(DirectoryInfo storageRoot)
+        public XrInfrastructureRepository(DirectoryInfo storageRoot)
         {
             if (storageRoot == null) { throw new ArgumentNullException("storageRoot"); }
 
             _storageRoot = storageRoot;
-            _hostInstanceConn = new XmlRepositoryConnection(
+            _hostInstanceConn = new XrConnection(
                 storageRoot,
                 "host_instance");
         }
@@ -187,7 +187,7 @@ namespace cc.bren.infman.impl
 
             return XR.List(
                 _hostInstanceConn,
-                new HostInstanceXmlMapping(),
+                new HostInstanceXrMapping(),
                 filter);
         }
 
@@ -197,7 +197,7 @@ namespace cc.bren.infman.impl
 
             return XR.Insert(
                 _hostInstanceConn,
-                new HostInstanceXmlMapping(),
+                new HostInstanceXrMapping(),
                 request);
         }
 
