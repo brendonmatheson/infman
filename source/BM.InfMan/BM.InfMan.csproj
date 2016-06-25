@@ -43,7 +43,9 @@
     <Compile Include="infrastructure\HostInstanceInsert.cs" />
     <Compile Include="infrastructure\impl\HostInstanceFactory.cs" />
     <Compile Include="infrastructure\impl\HostInstanceXrMapping.cs" />
+    <Compile Include="infrastructure\impl\InfrastructureXrMapping.cs" />
     <Compile Include="infrastructure\impl\XrInfrastructureRepository.cs" />
+    <Compile Include="infrastructure\InfrastructureFilter.cs" />
     <Compile Include="spec\impl\XrSpecRepository.cs" />
     <Compile Include="infrastructure\InfrastructureRepository.cs" />
     <Compile Include="infrastructure\HostInstanceEntity.cs" />

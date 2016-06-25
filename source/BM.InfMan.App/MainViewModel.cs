@@ -57,7 +57,8 @@ namespace cc.bren.infman
             this.HostSpecs.AddRange(hostSpecs, item => item.ToViewModel());
 
             // Infrsatructures
-            IList<InfrastructureEntity> infrastructures = _infrastructureRepository.InfrastructureList();
+            IList<InfrastructureEntity> infrastructures = _infrastructureRepository.InfrastructureList(
+                InfrastructureFilter.All());
             this.Infrastructures.Clear();
             this.Infrastructures.AddRange(infrastructures, item => item.ToListItemViewModel());
         }

@@ -45,7 +45,8 @@ namespace cc.bren.infman.infrastructure
                 "2.2.2.2"));
 
             // Execute
-            IList<InfrastructureEntity> result = infrastructureRepository.InfrastructureList();
+            IList<InfrastructureEntity> result = infrastructureRepository.InfrastructureList(
+                InfrastructureFilter.All());
 
             // Verify
             Assert.IsNotNull(result, "result");
