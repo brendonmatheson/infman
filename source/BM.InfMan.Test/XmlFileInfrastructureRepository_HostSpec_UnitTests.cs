@@ -21,7 +21,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace cc.bren.infman
 {
     [TestClass]
-    public class XmlFileInfManRepository_HostSpec_UnitTests : BaseInfManRepository_HostSpec_UnitTests, InfManRepository_HostSpec_UnitTests
+    public class XmlFileInfrastructureRepository_HostSpec_UnitTests :
+        BaseInfrastructureRepository_HostSpec_UnitTests,
+        InfrastructureRepository_HostSpec_UnitTests
     {
         private static TestContext_XmlFileStorage TC = new TestContext_XmlFileStorage();
 
@@ -29,42 +31,6 @@ namespace cc.bren.infman
         public static void BeforeClass(TestContext tc)
         {
             TC.Setup();
-        }
-
-        //
-        // HostSpecSingle
-        //
-
-        [TestMethod]
-        public void HostSpecSingle_ValidRequest_Succeeds()
-        {
-
-        }
-
-        [TestMethod]
-        public void HostSpecSingle_NullFilter_Throws()
-        {
-
-        }
-
-        //
-        // HostSpecList
-        //
-
-        [TestMethod]
-        public void HostSpecList_FilterAll_Succeeds()
-        {
-            base.HostSpecList_FilterAll_Succeeds(TC.SpecRepository);
-        }
-
-        //
-        // HostSpecInsert
-        //
-
-        [TestMethod]
-        public void HostSpecInsert_ValidRequest_Succeeds()
-        {
-            base.HostSpecInsert_ValidRequest_Succeeds(TC.SpecRepository);
         }
 
         //

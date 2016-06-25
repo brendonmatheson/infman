@@ -18,28 +18,8 @@
 
 namespace cc.bren.infman
 {
-    public interface InfManRepository_HostSpec_UnitTests
+    public interface InfrastructureRepository_HostSpec_UnitTests
     {
-
-        //
-        // HostSpecSingle
-        //
-
-        void HostSpecSingle_ValidRequest_Succeeds();
-
-        void HostSpecSingle_NullFilter_Throws();
-
-        //
-        // HostSpecList
-        //
-
-        void HostSpecList_FilterAll_Succeeds();
-
-        //
-        // HostSpecInsert
-        //
-
-        void HostSpecInsert_ValidRequest_Succeeds();
 
         //
         // InfrastructureInsert
