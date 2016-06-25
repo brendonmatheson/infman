@@ -187,8 +187,8 @@ namespace cc.bren.infman.impl
 
             return XR.List(
                 _hostInstanceConn,
-                filter,
-                new HostInstanceXmlMapping());
+                new HostInstanceXmlMapping(),
+                filter);
         }
 
         public HostInstanceEntity HostInstanceInsert(HostInstanceInsert request)

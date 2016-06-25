@@ -27,10 +27,11 @@ namespace cc.bren.infman.framework.xmlrepository
     {
         public static IList<TEntity> List<TEntity, TFilter>(
             XmlRepositoryConnection conn,
-            TFilter filter,
-            XmlQueryMapping<TEntity> mapping) where TFilter : Filter<TEntity>
+            XmlQueryMapping<TEntity> mapping,
+            TFilter filter) where TFilter : Filter<TEntity>
         {
             if (conn == null) { throw new ArgumentNullException("conn"); }
+            if (mapping == null) { throw new ArgumentNullException("mapping"); }
             if (filter == null) { throw new ArgumentNullException("filter"); }
 
             IList<TEntity> result = new List<TEntity>();
