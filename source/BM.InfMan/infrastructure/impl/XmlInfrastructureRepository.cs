@@ -30,24 +30,16 @@ namespace cc.bren.infman.impl
     public class XmlInfrastructureRepository : InfrastructureRepository
     {
         private DirectoryInfo _storageRoot;
-        private EntityDefinition<HostInstanceEntity, HostInstanceInsert, HostInstanceFilter> _hostInstanceEntityDef;
+        private XmlRepositoryConnection _hostInstanceConn;
 
         public XmlInfrastructureRepository(DirectoryInfo storageRoot)
         {
             if (storageRoot == null) { throw new ArgumentNullException("storageRoot"); }
 
             _storageRoot = storageRoot;
-            _hostInstanceEntityDef = new EntityDefinition<HostInstanceEntity, HostInstanceInsert, HostInstanceFilter>(
-                "host_instance",
+            _hostInstanceConn = new XmlRepositoryConnection(
                 storageRoot,
-                e => e.Name + "_" + e.HostInstanceId.ToString().Substring(0, 8),
-                (id, insert) => HostInstanceFactory.Entity(
-                    id,
-                    insert.Name,
-                    insert.HostSpecId,
-                    insert.InfrastructureId),
-                this.HostInstanceSer,
-                this.HostInstanceDeser);
+                "host_instance");
         }
 
         //
@@ -193,42 +185,20 @@ namespace cc.bren.infman.impl
         {
             if (filter == null) { throw new ArgumentNullException("filter"); }
 
-            return _hostInstanceEntityDef.List(filter);
+            return XR.List(
+                _hostInstanceConn,
+                filter,
+                new HostInstanceXmlMapping());
         }
 
         public HostInstanceEntity HostInstanceInsert(HostInstanceInsert request)
         {
-            return _hostInstanceEntityDef.Insert(request);
-        }
+            if (request == null) { throw new ArgumentNullException("request"); }
 
-        private XElement HostInstanceSer(
-            HostInstanceEntity entity)
-        {
-            if (entity == null) { throw new ArgumentNullException("entity"); }
-
-            return new XElement(
-                _hostInstanceEntityDef.Name,
-                new XAttribute("host_instance_id", entity.HostInstanceId.ToString()),
-                new XAttribute("name", entity.Name),
-                new XAttribute("host_spec_id", entity.HostSpecId.ToString()),
-                new XAttribute("infrastructure_id", entity.InfrastructureId));
-        }
-
-        private HostInstanceEntity HostInstanceDeser(
-            XElement xe)
-        {
-            if (xe == null) { throw new ArgumentNullException("xe"); }
-
-            Guid hostInstanceId = Guid.Parse(xe.Attribute("host_instance_id").Value);
-            string name = xe.Attribute("name").Value;
-            Guid hostSpecId = Guid.Parse(xe.Attribute("host_spec_id").Value);
-            Guid infrastructureId = Guid.Parse(xe.Attribute("infrastructure_id").Value);
-
-            return HostInstanceFactory.Entity(
-                hostInstanceId,
-                name,
-                hostSpecId,
-                infrastructureId);
+            return XR.Insert(
+                _hostInstanceConn,
+                new HostInstanceXmlMapping(),
+                request);
         }
 
         //

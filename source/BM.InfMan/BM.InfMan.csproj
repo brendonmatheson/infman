@@ -33,10 +33,16 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="framework\Filter.cs" />
-    <Compile Include="framework\xmlrepository\EntityDefinition.cs" />
+    <Compile Include="framework\xmlrepository\XmlInsertMapping.cs" />
+    <Compile Include="framework\xmlrepository\XmlLoadMapping.cs" />
+    <Compile Include="framework\xmlrepository\XmlQueryMapping.cs" />
+    <Compile Include="framework\xmlrepository\XmlMapping.cs" />
+    <Compile Include="framework\xmlrepository\XmlRepositoryConnection.cs" />
+    <Compile Include="framework\xmlrepository\XR.cs" />
     <Compile Include="infrastructure\HostInstanceFilter.cs" />
     <Compile Include="infrastructure\HostInstanceInsert.cs" />
     <Compile Include="infrastructure\impl\HostInstanceFactory.cs" />
+    <Compile Include="infrastructure\impl\HostInstanceXmlMapping.cs" />
     <Compile Include="infrastructure\impl\XmlInfrastructureRepository.cs" />
     <Compile Include="spec\impl\XmlSpecRepository.cs" />
     <Compile Include="infrastructure\InfrastructureRepository.cs" />
