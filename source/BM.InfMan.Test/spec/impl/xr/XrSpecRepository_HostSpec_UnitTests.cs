@@ -18,7 +18,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace cc.bren.infman.spec.impl
+namespace cc.bren.infman.spec.impl.xr
 {
     [TestClass]
     public class XrSpecRepository_HostSpec_UnitTests :

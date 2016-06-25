@@ -16,12 +16,15 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.framework.xmlrepository
+namespace cc.bren.infman.framework.xr
 {
-    using System.Xml.Linq;
-
-    public interface XrQueryMapping<TEntity> : XrLoadMapping<TEntity>
+    /// <summary>
+    /// A convenience contract that combines the XmlQueryMapping and XmlInsertMapping contracts together so that they
+    /// can be implemented in one hit.
+    /// </summary>
+    public interface XrMapping<TEntity, TInsert> :
+        XrQueryMapping<TEntity>,
+        XrInsertMapping<TEntity, TInsert>
     {
-        TEntity Deser(XElement xe);
     }
 }

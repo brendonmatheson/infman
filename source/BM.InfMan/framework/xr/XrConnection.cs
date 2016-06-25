@@ -16,43 +16,25 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.infrastructure
+namespace cc.bren.infman.framework.xr
 {
     using System;
+    using System.IO;
 
-    public abstract class InfrastructureFactory
+    public class XrConnection
     {
-        /// <summary>
-        /// Entity
-        /// </summary>
-        protected InfrastructureFactory(
-            Guid infrastructureId,
-            InfrastructureType infrastructureType,
+        public XrConnection(
+            DirectoryInfo storageRoot,
             string name)
         {
-            if (infrastructureType == null) { throw new ArgumentNullException("infrastructureType"); }
+            if (storageRoot == null) { throw new ArgumentNullException("storageRoot"); }
             if (name == null) { throw new ArgumentNullException("name"); }
 
-            this.InfrastructureId = infrastructureId;
-            this.InfrastructureType = infrastructureType;
+            this.StorageRoot = storageRoot;
             this.Name = name;
         }
 
-        /// <summary>
-        /// Insert
-        /// </summary>
-        protected InfrastructureFactory(
-            InfrastructureType infrastructureType,
-            string name)
-        {
-            if (name == null) { throw new ArgumentNullException("name"); }
-
-            this.InfrastructureType = infrastructureType;
-            this.Name = name;
-        }
-        public Guid InfrastructureId { get; private set; }
-
-        public InfrastructureType InfrastructureType { get; private set; }
+        public DirectoryInfo StorageRoot { get; private set; }
 
         public string Name { get; private set; }
     }

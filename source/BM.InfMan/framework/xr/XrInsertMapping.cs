@@ -16,26 +16,15 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.framework.xmlrepository
+namespace cc.bren.infman.framework.xr
 {
     using System;
-    using System.IO;
+    using System.Xml.Linq;
 
-    public class XrConnection
+    public interface XrInsertMapping<TEntity, TInsert> : XrLoadMapping<TEntity>
     {
-        public XrConnection(
-            DirectoryInfo storageRoot,
-            string name)
-        {
-            if (storageRoot == null) { throw new ArgumentNullException("storageRoot"); }
-            if (name == null) { throw new ArgumentNullException("name"); }
+        TEntity BuildNew(Guid id, TInsert insert);
 
-            this.StorageRoot = storageRoot;
-            this.Name = name;
-        }
-
-        public DirectoryInfo StorageRoot { get; private set; }
-
-        public string Name { get; private set; }
+        XElement Ser(TEntity entity);
     }
 }

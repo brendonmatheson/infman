@@ -18,7 +18,8 @@
 
 namespace cc.bren.infman
 {
-    using cc.bren.infman.impl;
+    using cc.bren.infman.infrastructure.impl.xr;
+    using cc.bren.infman.spec.impl.xr;
     using System;
     using System.IO;
 

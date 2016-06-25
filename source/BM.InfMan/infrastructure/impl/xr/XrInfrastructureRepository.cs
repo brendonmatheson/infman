@@ -16,11 +16,10 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.impl
+namespace cc.bren.infman.infrastructure.impl.xr
 {
-    using cc.bren.infman.framework.xmlrepository;
+    using cc.bren.infman.framework.xr;
     using cc.bren.infman.infrastructure;
-    using cc.bren.infman.infrastructure.impl;
     using System;
     using System.Collections.Generic;
     using System.IO;

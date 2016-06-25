@@ -16,12 +16,12 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-using cc.bren.infman.framework.xmlrepository;
-using System;
-using System.Xml.Linq;
-
-namespace cc.bren.infman.infrastructure.impl
+namespace cc.bren.infman.infrastructure.impl.xr
 {
+    using cc.bren.infman.framework.xr;
+    using System;
+    using System.Xml.Linq;
+
     public class InfrastructureXrMapping : XrMapping<InfrastructureEntity, InfrastructureInsert>
     {
         public string MapName(InfrastructureEntity entity)

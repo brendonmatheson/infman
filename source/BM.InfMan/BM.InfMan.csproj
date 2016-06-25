@@ -33,27 +33,27 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="framework\Filter.cs" />
-    <Compile Include="framework\xmlrepository\XrInsertMapping.cs" />
-    <Compile Include="framework\xmlrepository\XrLoadMapping.cs" />
-    <Compile Include="framework\xmlrepository\XrQueryMapping.cs" />
-    <Compile Include="framework\xmlrepository\XrMapping.cs" />
-    <Compile Include="framework\xmlrepository\XrConnection.cs" />
-    <Compile Include="framework\xmlrepository\XR.cs" />
+    <Compile Include="framework\xr\XrInsertMapping.cs" />
+    <Compile Include="framework\xr\XrLoadMapping.cs" />
+    <Compile Include="framework\xr\XrQueryMapping.cs" />
+    <Compile Include="framework\xr\XrMapping.cs" />
+    <Compile Include="framework\xr\XrConnection.cs" />
+    <Compile Include="framework\xr\XR.cs" />
     <Compile Include="infrastructure\HostInstanceFilter.cs" />
     <Compile Include="infrastructure\HostInstanceInsert.cs" />
     <Compile Include="infrastructure\impl\HostInstanceFactory.cs" />
-    <Compile Include="infrastructure\impl\HostInstanceXrMapping.cs" />
-    <Compile Include="infrastructure\impl\InfrastructureXrMapping.cs" />
-    <Compile Include="infrastructure\impl\XrInfrastructureRepository.cs" />
+    <Compile Include="infrastructure\impl\xr\HostInstanceXrMapping.cs" />
+    <Compile Include="infrastructure\impl\xr\InfrastructureXrMapping.cs" />
+    <Compile Include="infrastructure\impl\xr\XrInfrastructureRepository.cs" />
     <Compile Include="infrastructure\InfrastructureFilter.cs" />
-    <Compile Include="spec\impl\XrSpecRepository.cs" />
+    <Compile Include="spec\impl\xr\XrSpecRepository.cs" />
     <Compile Include="infrastructure\InfrastructureRepository.cs" />
     <Compile Include="infrastructure\HostInstanceEntity.cs" />
     <Compile Include="infrastructure\impl\VmwareEsxiEntity.cs" />
     <Compile Include="infrastructure\impl\VmwareEsxiFactory.cs" />
     <Compile Include="infrastructure\impl\VmwareEsxiInsert.cs" />
     <Compile Include="infrastructure\InfrastructureEntity.cs" />
-    <Compile Include="infrastructure\InfrastructureFactory.cs" />
+    <Compile Include="infrastructure\impl\InfrastructureFactory.cs" />
     <Compile Include="infrastructure\InfrastructureInsert.cs" />
     <Compile Include="infrastructure\InfrastructureType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,9 +69,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="impl\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
