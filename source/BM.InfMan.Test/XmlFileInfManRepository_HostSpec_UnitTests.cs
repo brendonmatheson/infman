@@ -82,5 +82,35 @@ namespace cc.bren.infman
         {
             base.InfrastructureInsert_ValidRequest_Succeeds(TC.InfrastructureRepository);
         }
+
+        //
+        // HostInstanceSingle
+        //
+
+        [TestMethod]
+        public void HostInstanceSingle_FilterByHostSpecId_Succeeds()
+        {
+            base.HostInstanceSingle_FilterByHostSpecId_Succeeds(TC.InfrastructureRepository);
+        }
+
+        //
+        // HostInstanceList
+        //
+
+        [TestMethod]
+        public void HostInstanceList_FilterByHostSpecId_Succeeds()
+        {
+            base.HostInstanceList_FilterByHostSpecId_Succeeds(TC.InfrastructureRepository);
+        }
+
+        //
+        // HostInstanceInsert
+        //
+
+        [TestMethod]
+        public void HostInstanceInsert_ValueRequest_Succeeds()
+        {
+            base.HostInstanceInsert_ValueRequest_Succeeds(TC.InfrastructureRepository);
+        }
     }
 }

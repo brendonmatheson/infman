@@ -32,6 +32,10 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="infrastructure\HostInstanceFilter.cs" />
+    <Compile Include="infrastructure\HostInstanceExtensions.cs" />
+    <Compile Include="infrastructure\HostInstanceInsert.cs" />
+    <Compile Include="infrastructure\impl\HostInstanceFactory.cs" />
     <Compile Include="infrastructure\impl\XmlFileInfrastructureRepository.cs" />
     <Compile Include="spec\impl\XmlFileSpecRepository.cs" />
     <Compile Include="infrastructure\InfrastructureRepository.cs" />

@@ -16,31 +16,16 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman
+namespace cc.bren.infman.infrastructure
 {
-    using cc.bren.infman.infrastructure;
-    using System.Collections.Generic;
+    using System;
 
-    public interface InfrastructureRepository
+    public interface HostInstanceInsert
     {
+        string Name { get; }
 
-        //
-        // Infrastructure
-        //
+        Guid HostSpecId { get; }
 
-        IList<InfrastructureEntity> InfrastructureList();
-
-        InfrastructureEntity InfrastructureInsert(InfrastructureInsert request);
-
-        //
-        // HostInstance
-        //
-
-        HostInstanceEntity HostInstanceSingle(HostInstanceFilter filter);
-
-        IList<HostInstanceEntity> HostInstanceList(HostInstanceFilter filter);
-
-        HostInstanceEntity HostInstanceInsert(HostInstanceInsert request);
-
+        Guid InfrastructureId { get; }
     }
 }

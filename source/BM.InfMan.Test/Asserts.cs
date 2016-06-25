@@ -16,6 +16,7 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+using System;
 namespace cc.bren.infman
 {
     using cc.bren.infman.infrastructure;
@@ -140,6 +141,46 @@ namespace cc.bren.infman
             VmwareEsxiEntity actualT = (VmwareEsxiEntity)actual;
 
             Assert.AreEqual(expectedIpAddress, actualT.IpAddress, name + ".IpAddress");
+        }
+
+        //
+        // HostInstance
+        //
+
+        public static void AssertHostInstanceEntity(
+            Guid expectedHostInstanceId,
+            string expectedName,
+            Guid expectedHostSpecId,
+            Guid expectedInfrastructureId,
+            HostInstanceEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Asserts.AssertHostInstanceEntity(
+                expectedName,
+                expectedHostSpecId,
+                expectedInfrastructureId,
+                actual,
+                name);
+
+            Assert.AreEqual(expectedHostInstanceId, actual.HostInstanceId, name + ".HostInstanceId");
+        }
+
+        public static void AssertHostInstanceEntity(
+            string expectedName,
+            Guid expectedHostSpecId,
+            Guid expectedInfrastructureId,
+            HostInstanceEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Assert.IsNotNull(actual, name);
+
+            Assert.AreEqual(expectedName, actual.Name, name + ".Name");
+            Assert.AreEqual(expectedHostSpecId, actual.HostSpecId, name + ".HostSpecId");
+            Assert.AreEqual(expectedInfrastructureId, actual.InfrastructureId, name + ".InfrastructureId");
         }
 
     }

@@ -23,6 +23,7 @@ namespace cc.bren.infman.impl
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Xml.Linq;
 
     public class XmlFileInfrastructureRepository : InfrastructureRepository
@@ -125,10 +126,6 @@ namespace cc.bren.infman.impl
             return result;
         }
 
-        //
-        // Helper
-        //
-
         private DirectoryInfo InfrastructuresDir()
         {
             return new DirectoryInfo(Path.Combine(
@@ -165,6 +162,132 @@ namespace cc.bren.infman.impl
 
             return infrastructureDir.File("infrastructure.xml");
         }
+
+        //
+        // HostInstance
+        //
+
+        public HostInstanceEntity HostInstanceSingle(HostInstanceFilter filter)
+        {
+            if (filter == null) { throw new ArgumentNullException("filter"); }
+
+            IList<HostInstanceEntity> list = this.HostInstanceList(filter);
+
+            return list.Single();
+        }
+
+        public IList<HostInstanceEntity> HostInstanceList(HostInstanceFilter filter)
+        {
+            if (filter == null) { throw new ArgumentNullException("filter"); }
+
+            IList<HostInstanceEntity> result = new List<HostInstanceEntity>();
+
+            DirectoryInfo hostInstancesDir = this.HostInstancesDir();
+            DirectoryInfo[] hostInstanceDirs = hostInstancesDir.GetDirectories();
+
+            foreach (DirectoryInfo hostInstanceDir in hostInstanceDirs)
+            {
+                HostInstanceEntity entity = this.HostInstanceEntityLoad(hostInstanceDir);
+
+                if (filter.Matches(entity))
+                {
+                    result.Add(entity);
+                }
+            }
+
+            return result;
+        }
+
+        private HostInstanceEntity HostInstanceEntityLoad(
+            DirectoryInfo hostInstanceDir)
+        {
+            if (hostInstanceDir == null) { throw new ArgumentNullException("hostInstanceDir"); }
+
+            FileInfo file = this.HostInstanceFile(hostInstanceDir);
+
+            XElement xe = XElement.Load(file.FullName);
+
+            Guid hostInstanceId = Guid.Parse(xe.Attribute("host_instance_id").Value);
+            string name = xe.Attribute("name").Value;
+            Guid hostSpecId = Guid.Parse(xe.Attribute("host_spec_id").Value);
+            Guid infrastructureId = Guid.Parse(xe.Attribute("infrastructure_id").Value);
+
+            return HostInstanceFactory.Entity(
+                hostInstanceId,
+                name,
+                hostSpecId,
+                infrastructureId);
+        }
+
+        public HostInstanceEntity HostInstanceInsert(HostInstanceInsert request)
+        {
+            if (request == null) { throw new ArgumentNullException("request"); }
+
+            Guid hostInstanceId = Guid.NewGuid();
+
+            XElement xe = new XElement(
+                "host_instance",
+                new XAttribute("host_instance_id", hostInstanceId.ToString()),
+                new XAttribute("name", request.Name),
+                new XAttribute("host_spec_id", request.HostSpecId),
+                new XAttribute("infrastructure_id", request.InfrastructureId.ToString()));
+
+            DirectoryInfo hostInstanceDir = this.HostInstanceDir(
+                hostInstanceId,
+                request.Name,
+                true);
+
+            FileInfo hostInstanceFile = this.HostInstanceFile(hostInstanceDir);
+
+            xe.Save(hostInstanceFile.FullName);
+
+            return HostInstanceFactory.Entity(
+                hostInstanceId,
+                request.Name,
+                request.HostSpecId,
+                request.InfrastructureId);
+        }
+
+        private DirectoryInfo HostInstancesDir()
+        {
+            return new DirectoryInfo(Path.Combine(
+                _storageRoot.FullName,
+                "host_instance"));
+        }
+
+        private DirectoryInfo HostInstanceDir(
+            Guid hostIntanceId,
+            string name,
+            bool autoCreate)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            name = this.FilenameSafe(name);
+
+            DirectoryInfo result = new DirectoryInfo(Path.Combine(
+                this.HostInstancesDir().FullName,
+                name + "_" + hostIntanceId.ToString().Substring(0, 8)));
+
+            if (autoCreate && !result.Exists)
+            {
+                result.Create();
+                result.Refresh();
+            }
+
+            return result;
+        }
+
+        private FileInfo HostInstanceFile(
+            DirectoryInfo hostInstanceDir)
+        {
+            if (hostInstanceDir == null) { throw new ArgumentNullException("hostInstanceDir"); }
+
+            return hostInstanceDir.File("host_instance.xml");
+        }
+
+        //
+        // Helper
+        //
 
         private string FilenameSafe(string value)
         {

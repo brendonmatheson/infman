@@ -16,6 +16,7 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+using System;
 namespace cc.bren.infman
 {
     using cc.bren.infman.spec;
@@ -139,6 +140,73 @@ namespace cc.bren.infman
             Asserts.AssertVmwareEsxiEntity(
                 "esxi01", "1.2.3.4",
                 inserted, "inserted");
+        }
+
+        //
+        // HostInstanceSingle
+        //
+
+        protected void HostInstanceSingle_FilterByHostSpecId_Succeeds(
+            InfrastructureRepository infrastructureRepository)
+        {
+            if (infrastructureRepository == null) { throw new ArgumentNullException("infrastructureRepository"); }
+
+            // Setup
+            HostInstanceEntity inserted = infrastructureRepository.HostInstanceInsert(HostInstanceFactory.Insert(
+                "foo",
+                Guid.NewGuid(),
+                Guid.NewGuid()));
+
+            // Execute
+            HostInstanceEntity result = infrastructureRepository.HostInstanceSingle(HostInstanceFilter.ByHostSpecId(
+                inserted.HostSpecId));
+
+            // Verify
+            Asserts.AssertHostInstanceEntity(
+                inserted.HostInstanceId,
+                inserted.Name,
+                inserted.HostSpecId,
+                inserted.InfrastructureId,
+                result,
+                "result");
+        }
+
+        //
+        // HostInstanceList
+        //
+
+        protected void HostInstanceList_FilterByHostSpecId_Succeeds(
+            InfrastructureRepository infrastructureRepository)
+        {
+            if (infrastructureRepository == null) { throw new ArgumentNullException("infrastructureRepository"); }
+
+        }
+
+        //
+        // HostInstanceInsert
+        //
+
+        protected void HostInstanceInsert_ValueRequest_Succeeds(
+            InfrastructureRepository infrastructureRepository)
+        {
+            if (infrastructureRepository == null) { throw new ArgumentNullException("infrastructureRepository"); }
+
+            // Setup
+            HostInstanceInsert request = HostInstanceFactory.Insert(
+                "foo",
+                Guid.NewGuid(),
+                Guid.NewGuid());
+
+            // Execute
+            HostInstanceEntity result = infrastructureRepository.HostInstanceInsert(request);
+
+            // Verify
+            Asserts.AssertHostInstanceEntity(
+                request.Name,
+                request.HostSpecId,
+                request.InfrastructureId,
+                result,
+                "result");
         }
 
     }

@@ -123,7 +123,7 @@ namespace cc.bren.infman.impl
         {
             return new DirectoryInfo(Path.Combine(
                 _storageRoot.FullName,
-                "host_specs"));
+                "host_spec"));
         }
 
         private DirectoryInfo HostSpecDir(
