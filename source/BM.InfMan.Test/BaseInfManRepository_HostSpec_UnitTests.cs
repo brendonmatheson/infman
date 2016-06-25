@@ -47,18 +47,18 @@ namespace cc.bren.infman
         //
 
         protected void HostSpecList_FilterAll_Succeeds(
-            InfManRepository infManRepository)
+            SpecRepository specRepository)
         {
-            if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
+            if (specRepository == null) { throw new ArgumentNullException("specRepository"); }
 
             // Setup
             HostSpecInsert hs1 = HostSpecFactory.Insert("foo", Constants.Size1GB);
-            HostSpecEntity e1 = infManRepository.HostSpecInsert(hs1);
+            HostSpecEntity e1 = specRepository.HostSpecInsert(hs1);
             HostSpecInsert hs2 = HostSpecFactory.Insert("bar", 500 * Constants.Size1MB);
-            HostSpecEntity e2 = infManRepository.HostSpecInsert(hs2);
+            HostSpecEntity e2 = specRepository.HostSpecInsert(hs2);
 
             // Execute
-            IList<HostSpecEntity> result = infManRepository.HostSpecList(HostSpecFilter.All());
+            IList<HostSpecEntity> result = specRepository.HostSpecList(HostSpecFilter.All());
 
             // Verify
             Assert.IsNotNull(result, "result");
@@ -77,15 +77,15 @@ namespace cc.bren.infman
         //
 
         protected void HostSpecInsert_ValidRequest_Succeeds(
-            InfManRepository infManRepository)
+            SpecRepository specRepository)
         {
-            if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
+            if (specRepository == null) { throw new ArgumentNullException("specRepository"); }
 
             // Setup
             HostSpecInsert request = HostSpecFactory.Insert("foo", 4 * Constants.Size1GB);
 
             // Execute
-            HostSpecEntity result = infManRepository.HostSpecInsert(request);
+            HostSpecEntity result = specRepository.HostSpecInsert(request);
 
             // Verify
             Asserts.AssertHostSpecEntity(
@@ -98,21 +98,21 @@ namespace cc.bren.infman
         //
 
         protected void InfrastructureList_FilterAll_Succeeds(
-            InfManRepository infManRepository)
+            InfrastructureRepository infrastructureRepository)
         {
-            if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
+            if (infrastructureRepository == null) { throw new ArgumentNullException("infrastructureRepository"); }
 
             // Setup
-            InfrastructureEntity o1 = infManRepository.InfrastructureInsert(VmwareEsxiFactory.Insert(
+            InfrastructureEntity o1 = infrastructureRepository.InfrastructureInsert(VmwareEsxiFactory.Insert(
                 "esxi01",
                 "1.1.1.1"));
 
-            InfrastructureEntity o2 = infManRepository.InfrastructureInsert(VmwareEsxiFactory.Insert(
+            InfrastructureEntity o2 = infrastructureRepository.InfrastructureInsert(VmwareEsxiFactory.Insert(
                 "esxi02",
                 "2.2.2.2"));
 
             // Execute
-            IList<InfrastructureEntity> result = infManRepository.InfrastructureList();
+            IList<InfrastructureEntity> result = infrastructureRepository.InfrastructureList();
 
             // Verify
             Assert.IsNotNull(result, "result");
@@ -123,9 +123,9 @@ namespace cc.bren.infman
         }
 
         protected void InfrastructureInsert_ValidRequest_Succeeds(
-            InfManRepository infManRepository)
+            InfrastructureRepository infrastructureRepository)
         {
-            if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
+            if (infrastructureRepository == null) { throw new ArgumentNullException("infrastructureRepository"); }
 
             // Setup
             InfrastructureInsert request = VmwareEsxiFactory.Insert(
@@ -133,7 +133,7 @@ namespace cc.bren.infman
                 "1.2.3.4");
 
             // Execute
-            InfrastructureEntity inserted = infManRepository.InfrastructureInsert(request);
+            InfrastructureEntity inserted = infrastructureRepository.InfrastructureInsert(request);
 
             // Verify
             Asserts.AssertVmwareEsxiEntity(

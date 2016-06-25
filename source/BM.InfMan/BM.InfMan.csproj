@@ -32,8 +32,10 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="impl\XmlFileInfManRepository.cs" />
-    <Compile Include="InfManRepository.cs" />
+    <Compile Include="infrastructure\impl\XmlFileInfrastructureRepository.cs" />
+    <Compile Include="spec\impl\XmlFileSpecRepository.cs" />
+    <Compile Include="infrastructure\InfrastructureRepository.cs" />
+    <Compile Include="infrastructure\HostInstanceEntity.cs" />
     <Compile Include="infrastructure\impl\VmwareEsxiEntity.cs" />
     <Compile Include="infrastructure\impl\VmwareEsxiFactory.cs" />
     <Compile Include="infrastructure\impl\VmwareEsxiInsert.cs" />
@@ -46,12 +48,16 @@
     <Compile Include="spec\HostSpecFactory.cs" />
     <Compile Include="spec\HostSpecFilter.cs" />
     <Compile Include="spec\HostSpecInsert.cs" />
+    <Compile Include="spec\SpecRepository.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="impl\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

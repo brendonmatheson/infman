@@ -26,14 +26,18 @@ namespace cc.bren.infman
 
     public class MainViewModel
     {
-        private InfManRepository _infManRepository;
+        private SpecRepository _specRepository;
+        private InfrastructureRepository _infrastructureRepository;
 
         public MainViewModel(
-            InfManRepository infManRepository)
+            SpecRepository specRepository,
+            InfrastructureRepository infrastructureRepository)
         {
-            if (infManRepository == null) { throw new ArgumentNullException("infManRepository"); }
+            if (specRepository == null) { throw new ArgumentNullException("specRepository"); }
+            if (infrastructureRepository == null) { throw new ArgumentNullException("infrastructureRepository"); }
 
-            _infManRepository = infManRepository;
+            _specRepository = specRepository;
+            _infrastructureRepository = infrastructureRepository;
 
             this.HostSpecs = new ObservableCollection<HostSpecViewModel>();
             this.Infrastructures = new ObservableCollection<InfrastructureListItemViewModel>();
@@ -48,12 +52,12 @@ namespace cc.bren.infman
         private void Refresh()
         {
             // HostSpecs
-            IList<HostSpecEntity> hostSpecs = _infManRepository.HostSpecList(HostSpecFilter.All());
+            IList<HostSpecEntity> hostSpecs = _specRepository.HostSpecList(HostSpecFilter.All());
             this.HostSpecs.Clear();
             this.HostSpecs.AddRange(hostSpecs, item => item.ToViewModel());
 
             // Infrsatructures
-            IList<InfrastructureEntity> infrastructures = _infManRepository.InfrastructureList();
+            IList<InfrastructureEntity> infrastructures = _infrastructureRepository.InfrastructureList();
             this.Infrastructures.Clear();
             this.Infrastructures.AddRange(infrastructures, item => item.ToListItemViewModel());
         }

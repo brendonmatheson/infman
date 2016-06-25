@@ -19,10 +19,9 @@
 namespace cc.bren.infman
 {
     using cc.bren.infman.spec;
-    using cc.bren.infman.infrastructure;
     using System.Collections.Generic;
 
-    public interface InfManRepository
+    public interface SpecRepository
     {
 
         //
@@ -34,14 +33,6 @@ namespace cc.bren.infman
         IList<HostSpecEntity> HostSpecList(HostSpecFilter filter);
 
         HostSpecEntity HostSpecInsert(HostSpecInsert request);
-
-        //
-        // Infrastructure
-        //
-
-        IList<InfrastructureEntity> InfrastructureList();
-
-        InfrastructureEntity InfrastructureInsert(InfrastructureInsert request);
 
     }
 }

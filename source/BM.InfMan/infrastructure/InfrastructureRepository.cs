@@ -18,26 +18,19 @@
 
 namespace cc.bren.infman
 {
-    using cc.bren.infman.impl;
-    using System.IO;
-    using System.Windows;
+    using cc.bren.infman.infrastructure;
+    using System.Collections.Generic;
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public interface InfrastructureRepository
     {
-        public MainWindow()
-        {
-            InitializeComponent();
 
-            DirectoryInfo storageRoot = new DirectoryInfo(@"W:\dat\inf_man");
-            SpecRepository specRepository = new XmlFileSpecRepository(storageRoot);
-            InfrastructureRepository infrastructureRepository = new XmlFileInfrastructureRepository(storageRoot);
+        //
+        // Infrastructure
+        //
 
-            this.DataContext = new MainViewModel(
-                specRepository,
-                infrastructureRepository);
-        }
+        IList<InfrastructureEntity> InfrastructureList();
+
+        InfrastructureEntity InfrastructureInsert(InfrastructureInsert request);
+
     }
 }

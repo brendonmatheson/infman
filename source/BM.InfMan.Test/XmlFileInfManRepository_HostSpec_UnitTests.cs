@@ -54,7 +54,7 @@ namespace cc.bren.infman
         [TestMethod]
         public void HostSpecList_FilterAll_Succeeds()
         {
-            base.HostSpecList_FilterAll_Succeeds(TC.InfManRepository);
+            base.HostSpecList_FilterAll_Succeeds(TC.SpecRepository);
         }
 
         //
@@ -64,7 +64,7 @@ namespace cc.bren.infman
         [TestMethod]
         public void HostSpecInsert_ValidRequest_Succeeds()
         {
-            base.HostSpecInsert_ValidRequest_Succeeds(TC.InfManRepository);
+            base.HostSpecInsert_ValidRequest_Succeeds(TC.SpecRepository);
         }
 
         //
@@ -74,13 +74,13 @@ namespace cc.bren.infman
         [TestMethod]
         public void InfrastructureList_FilterAll_Succeeds()
         {
-            base.InfrastructureList_FilterAll_Succeeds(TC.InfManRepository);
+            base.InfrastructureList_FilterAll_Succeeds(TC.InfrastructureRepository);
         }
 
         [TestMethod]
         public void InfrastructureInsert_ValidRequest_Succeeds()
         {
-            base.InfrastructureInsert_ValidRequest_Succeeds(TC.InfManRepository);
+            base.InfrastructureInsert_ValidRequest_Succeeds(TC.InfrastructureRepository);
         }
     }
 }
