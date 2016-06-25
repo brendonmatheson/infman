@@ -24,11 +24,11 @@ namespace cc.bren.infman.impl
     using System.IO;
     using System.Xml.Linq;
 
-    public class XmlFileSpecRepository : SpecRepository
+    public class XmlSpecRepository : SpecRepository
     {
         private DirectoryInfo _storageRoot;
 
-        public XmlFileSpecRepository(DirectoryInfo storageRoot)
+        public XmlSpecRepository(DirectoryInfo storageRoot)
         {
             if (storageRoot == null) { throw new ArgumentNullException("storageRoot"); }
 

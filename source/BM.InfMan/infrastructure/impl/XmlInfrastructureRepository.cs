@@ -18,23 +18,36 @@
 
 namespace cc.bren.infman.impl
 {
+    using cc.bren.infman.framework.xmlrepository;
     using cc.bren.infman.infrastructure;
-    using infrastructure.impl;
+    using cc.bren.infman.infrastructure.impl;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Xml.Linq;
 
-    public class XmlFileInfrastructureRepository : InfrastructureRepository
+    public class XmlInfrastructureRepository : InfrastructureRepository
     {
         private DirectoryInfo _storageRoot;
+        private EntityDefinition<HostInstanceEntity, HostInstanceInsert, HostInstanceFilter> _hostInstanceEntityDef;
 
-        public XmlFileInfrastructureRepository(DirectoryInfo storageRoot)
+        public XmlInfrastructureRepository(DirectoryInfo storageRoot)
         {
             if (storageRoot == null) { throw new ArgumentNullException("storageRoot"); }
 
             _storageRoot = storageRoot;
+            _hostInstanceEntityDef = new EntityDefinition<HostInstanceEntity, HostInstanceInsert, HostInstanceFilter>(
+                "host_instance",
+                storageRoot,
+                e => e.Name + "_" + e.HostInstanceId.ToString().Substring(0, 8),
+                (id, insert) => HostInstanceFactory.Entity(
+                    id,
+                    insert.Name,
+                    insert.HostSpecId,
+                    insert.InfrastructureId),
+                this.HostInstanceSer,
+                this.HostInstanceDeser);
         }
 
         //
@@ -180,32 +193,31 @@ namespace cc.bren.infman.impl
         {
             if (filter == null) { throw new ArgumentNullException("filter"); }
 
-            IList<HostInstanceEntity> result = new List<HostInstanceEntity>();
-
-            DirectoryInfo hostInstancesDir = this.HostInstancesDir();
-            DirectoryInfo[] hostInstanceDirs = hostInstancesDir.GetDirectories();
-
-            foreach (DirectoryInfo hostInstanceDir in hostInstanceDirs)
-            {
-                HostInstanceEntity entity = this.HostInstanceEntityLoad(hostInstanceDir);
-
-                if (filter.Matches(entity))
-                {
-                    result.Add(entity);
-                }
-            }
-
-            return result;
+            return _hostInstanceEntityDef.List(filter);
         }
 
-        private HostInstanceEntity HostInstanceEntityLoad(
-            DirectoryInfo hostInstanceDir)
+        public HostInstanceEntity HostInstanceInsert(HostInstanceInsert request)
         {
-            if (hostInstanceDir == null) { throw new ArgumentNullException("hostInstanceDir"); }
+            return _hostInstanceEntityDef.Insert(request);
+        }
 
-            FileInfo file = this.HostInstanceFile(hostInstanceDir);
+        private XElement HostInstanceSer(
+            HostInstanceEntity entity)
+        {
+            if (entity == null) { throw new ArgumentNullException("entity"); }
 
-            XElement xe = XElement.Load(file.FullName);
+            return new XElement(
+                _hostInstanceEntityDef.Name,
+                new XAttribute("host_instance_id", entity.HostInstanceId.ToString()),
+                new XAttribute("name", entity.Name),
+                new XAttribute("host_spec_id", entity.HostSpecId.ToString()),
+                new XAttribute("infrastructure_id", entity.InfrastructureId));
+        }
+
+        private HostInstanceEntity HostInstanceDeser(
+            XElement xe)
+        {
+            if (xe == null) { throw new ArgumentNullException("xe"); }
 
             Guid hostInstanceId = Guid.Parse(xe.Attribute("host_instance_id").Value);
             string name = xe.Attribute("name").Value;
@@ -217,72 +229,6 @@ namespace cc.bren.infman.impl
                 name,
                 hostSpecId,
                 infrastructureId);
-        }
-
-        public HostInstanceEntity HostInstanceInsert(HostInstanceInsert request)
-        {
-            if (request == null) { throw new ArgumentNullException("request"); }
-
-            Guid hostInstanceId = Guid.NewGuid();
-
-            XElement xe = new XElement(
-                "host_instance",
-                new XAttribute("host_instance_id", hostInstanceId.ToString()),
-                new XAttribute("name", request.Name),
-                new XAttribute("host_spec_id", request.HostSpecId),
-                new XAttribute("infrastructure_id", request.InfrastructureId.ToString()));
-
-            DirectoryInfo hostInstanceDir = this.HostInstanceDir(
-                hostInstanceId,
-                request.Name,
-                true);
-
-            FileInfo hostInstanceFile = this.HostInstanceFile(hostInstanceDir);
-
-            xe.Save(hostInstanceFile.FullName);
-
-            return HostInstanceFactory.Entity(
-                hostInstanceId,
-                request.Name,
-                request.HostSpecId,
-                request.InfrastructureId);
-        }
-
-        private DirectoryInfo HostInstancesDir()
-        {
-            return new DirectoryInfo(Path.Combine(
-                _storageRoot.FullName,
-                "host_instance"));
-        }
-
-        private DirectoryInfo HostInstanceDir(
-            Guid hostIntanceId,
-            string name,
-            bool autoCreate)
-        {
-            if (name == null) { throw new ArgumentNullException("name"); }
-
-            name = this.FilenameSafe(name);
-
-            DirectoryInfo result = new DirectoryInfo(Path.Combine(
-                this.HostInstancesDir().FullName,
-                name + "_" + hostIntanceId.ToString().Substring(0, 8)));
-
-            if (autoCreate && !result.Exists)
-            {
-                result.Create();
-                result.Refresh();
-            }
-
-            return result;
-        }
-
-        private FileInfo HostInstanceFile(
-            DirectoryInfo hostInstanceDir)
-        {
-            if (hostInstanceDir == null) { throw new ArgumentNullException("hostInstanceDir"); }
-
-            return hostInstanceDir.File("host_instance.xml");
         }
 
         //

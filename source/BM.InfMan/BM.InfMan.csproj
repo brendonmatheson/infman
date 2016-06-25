@@ -32,12 +32,13 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="framework\Filter.cs" />
+    <Compile Include="framework\xmlrepository\EntityDefinition.cs" />
     <Compile Include="infrastructure\HostInstanceFilter.cs" />
-    <Compile Include="infrastructure\HostInstanceExtensions.cs" />
     <Compile Include="infrastructure\HostInstanceInsert.cs" />
     <Compile Include="infrastructure\impl\HostInstanceFactory.cs" />
-    <Compile Include="infrastructure\impl\XmlFileInfrastructureRepository.cs" />
-    <Compile Include="spec\impl\XmlFileSpecRepository.cs" />
+    <Compile Include="infrastructure\impl\XmlInfrastructureRepository.cs" />
+    <Compile Include="spec\impl\XmlSpecRepository.cs" />
     <Compile Include="infrastructure\InfrastructureRepository.cs" />
     <Compile Include="infrastructure\HostInstanceEntity.cs" />
     <Compile Include="infrastructure\impl\VmwareEsxiEntity.cs" />

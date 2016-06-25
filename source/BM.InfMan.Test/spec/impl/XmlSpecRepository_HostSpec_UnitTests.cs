@@ -21,7 +21,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace cc.bren.infman.spec.impl
 {
     [TestClass]
-    public class XmlFileSpecRepository_HostSpec_UnitTests :
+    public class XmlSpecRepository_HostSpec_UnitTests :
         BaseSpecRepository_HostSpec_UnitTests,
         SpecRepository_HostSpec_UnitTests
     {

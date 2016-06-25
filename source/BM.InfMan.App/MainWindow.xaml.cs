@@ -32,8 +32,8 @@ namespace cc.bren.infman
             InitializeComponent();
 
             DirectoryInfo storageRoot = new DirectoryInfo(@"W:\dat\inf_man");
-            SpecRepository specRepository = new XmlFileSpecRepository(storageRoot);
-            InfrastructureRepository infrastructureRepository = new XmlFileInfrastructureRepository(storageRoot);
+            SpecRepository specRepository = new XmlSpecRepository(storageRoot);
+            InfrastructureRepository infrastructureRepository = new XmlInfrastructureRepository(storageRoot);
 
             this.DataContext = new MainViewModel(
                 specRepository,

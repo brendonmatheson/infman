@@ -16,27 +16,10 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.infrastructure
+namespace cc.bren.infman.framework
 {
-    using System;
-
-    public static class HostInstanceExtensions
+    public interface Filter<Entity>
     {
-        public static bool Matches(
-            this HostInstanceFilter filter,
-            HostInstanceEntity entity)
-        {
-            if (filter == null) { throw new ArgumentNullException("filter"); }
-            if (entity == null) { throw new ArgumentNullException("entity"); }
-
-            bool result = true;
-
-            if (filter.HostSpecId.HasValue)
-            {
-                result &= filter.HostSpecId.Value == entity.HostSpecId;
-            }
-
-            return result;
-        }
+        bool Matches(Entity entity);
     }
 }

@@ -24,8 +24,8 @@ namespace cc.bren.infman
 
     public class TestContext_XmlFileStorage
     {
-        public XmlFileSpecRepository SpecRepository;
-        public XmlFileInfrastructureRepository InfrastructureRepository;
+        public XmlSpecRepository SpecRepository;
+        public XmlInfrastructureRepository InfrastructureRepository;
 
         public TestContext_XmlFileStorage()
         {
@@ -43,8 +43,8 @@ namespace cc.bren.infman
             storageRoot.Create();
             storageRoot.Refresh();
 
-            SpecRepository = new XmlFileSpecRepository(storageRoot);
-            InfrastructureRepository = new XmlFileInfrastructureRepository(storageRoot);
+            SpecRepository = new XmlSpecRepository(storageRoot);
+            InfrastructureRepository = new XmlInfrastructureRepository(storageRoot);
         }
 
         private int UnixTime()

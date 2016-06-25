@@ -18,9 +18,10 @@
 
 namespace cc.bren.infman.infrastructure
 {
+    using cc.bren.infman.framework;
     using System;
 
-    public class HostInstanceFilter
+    public class HostInstanceFilter : Filter<HostInstanceEntity>
     {
         public static HostInstanceFilter ByHostSpecId(
             Guid hostSpecId)
@@ -38,5 +39,19 @@ namespace cc.bren.infman.infrastructure
         }
 
         public Guid? HostSpecId { get; private set; }
+
+        public bool Matches(HostInstanceEntity entity)
+        {
+            if (entity == null) { throw new ArgumentNullException("entity"); }
+
+            bool result = true;
+
+            if (this.HostSpecId.HasValue)
+            {
+                result &= this.HostSpecId == entity.HostSpecId;
+            }
+
+            return result;
+        }
     }
 }

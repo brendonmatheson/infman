@@ -18,7 +18,9 @@
 
 namespace cc.bren.infman.spec
 {
-    public class HostSpecFilter
+    using cc.bren.infman.framework;
+
+    public class HostSpecFilter : Filter<HostSpecEntity>
     {
         public static HostSpecFilter All()
         {
@@ -27,6 +29,11 @@ namespace cc.bren.infman.spec
 
         public HostSpecFilter()
         {
+        }
+
+        public bool Matches(HostSpecEntity entity)
+        {
+            return true;
         }
     }
 }

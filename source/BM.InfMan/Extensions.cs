@@ -23,6 +23,18 @@ namespace cc.bren.infman
 
     public static class Extensions
     {
+        public static DirectoryInfo Dir(
+            this DirectoryInfo dir,
+            string name)
+        {
+            if (dir == null) { throw new ArgumentNullException("dir"); }
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            return new DirectoryInfo(Path.Combine(
+                dir.FullName,
+                name));
+        }
+
         public static FileInfo File(
             this DirectoryInfo dir,
             string name)
