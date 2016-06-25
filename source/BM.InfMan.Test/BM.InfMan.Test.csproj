@@ -51,14 +51,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Asserts.cs" />
-    <Compile Include="BaseInfrastructureRepository_HostSpec_UnitTests.cs" />
-    <Compile Include="BaseSpecRepository_HostSpec_UnitTests.cs" />
-    <Compile Include="InfrastructureRepository_HostSpec_UnitTests.cs" />
-    <Compile Include="SpecRepository_HostSpec_UnitTests.cs" />
+    <Compile Include="infrastructure\BaseInfrastructureRepository_HostSpec_UnitTests.cs" />
+    <Compile Include="spec\BaseSpecRepository_HostSpec_UnitTests.cs" />
+    <Compile Include="infrastructure\InfrastructureRepository_HostSpec_UnitTests.cs" />
+    <Compile Include="spec\SpecRepository_HostSpec_UnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestContext_XmlFileStorage.cs" />
-    <Compile Include="XmlFileInfrastructureRepository_HostSpec_UnitTests.cs" />
-    <Compile Include="XmlFileSpecRepository_HostSpec_UnitTests.cs" />
+    <Compile Include="infrastructure\impl\XmlFileInfrastructureRepository_HostSpec_UnitTests.cs" />
+    <Compile Include="spec\impl\XmlFileSpecRepository_HostSpec_UnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BM.InfMan\BM.InfMan.csproj">

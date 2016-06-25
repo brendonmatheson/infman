@@ -16,7 +16,7 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman
+namespace cc.bren.infman.spec
 {
     public interface SpecRepository_HostSpec_UnitTests
     {

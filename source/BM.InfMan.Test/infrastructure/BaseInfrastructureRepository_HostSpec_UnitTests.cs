@@ -16,10 +16,9 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman
+namespace cc.bren.infman.infrastructure
 {
-    using infrastructure;
-    using infrastructure.impl;
+    using cc.bren.infman.infrastructure.impl;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Collections.Generic;

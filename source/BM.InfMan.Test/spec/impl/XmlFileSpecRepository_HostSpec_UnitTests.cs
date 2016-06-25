@@ -18,12 +18,12 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace cc.bren.infman
+namespace cc.bren.infman.spec.impl
 {
     [TestClass]
-    public class XmlFileInfrastructureRepository_HostSpec_UnitTests :
-        BaseInfrastructureRepository_HostSpec_UnitTests,
-        InfrastructureRepository_HostSpec_UnitTests
+    public class XmlFileSpecRepository_HostSpec_UnitTests :
+        BaseSpecRepository_HostSpec_UnitTests,
+        SpecRepository_HostSpec_UnitTests
     {
         private static TestContext_XmlFileStorage TC = new TestContext_XmlFileStorage();
 
@@ -34,49 +34,39 @@ namespace cc.bren.infman
         }
 
         //
-        // InfrastructureInsert
+        // HostSpecSingle
         //
 
         [TestMethod]
-        public void InfrastructureList_FilterAll_Succeeds()
+        public void HostSpecSingle_ValidRequest_Succeeds()
         {
-            base.InfrastructureList_FilterAll_Succeeds(TC.InfrastructureRepository);
+
         }
 
         [TestMethod]
-        public void InfrastructureInsert_ValidRequest_Succeeds()
+        public void HostSpecSingle_NullFilter_Throws()
         {
-            base.InfrastructureInsert_ValidRequest_Succeeds(TC.InfrastructureRepository);
+
         }
 
         //
-        // HostInstanceSingle
+        // HostSpecList
         //
 
         [TestMethod]
-        public void HostInstanceSingle_FilterByHostSpecId_Succeeds()
+        public void HostSpecList_FilterAll_Succeeds()
         {
-            base.HostInstanceSingle_FilterByHostSpecId_Succeeds(TC.InfrastructureRepository);
+            base.HostSpecList_FilterAll_Succeeds(TC.SpecRepository);
         }
 
         //
-        // HostInstanceList
+        // HostSpecInsert
         //
 
         [TestMethod]
-        public void HostInstanceList_FilterByHostSpecId_Succeeds()
+        public void HostSpecInsert_ValidRequest_Succeeds()
         {
-            base.HostInstanceList_FilterByHostSpecId_Succeeds(TC.InfrastructureRepository);
-        }
-
-        //
-        // HostInstanceInsert
-        //
-
-        [TestMethod]
-        public void HostInstanceInsert_ValueRequest_Succeeds()
-        {
-            base.HostInstanceInsert_ValueRequest_Succeeds(TC.InfrastructureRepository);
+            base.HostSpecInsert_ValidRequest_Succeeds(TC.SpecRepository);
         }
     }
 }
