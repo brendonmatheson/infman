@@ -24,70 +24,42 @@ namespace cc.bren.infman.infrastructure.impl
 
     public class HostInstanceXrMapping : XrMapping<HostInstanceEntity, HostInstanceInsert>
     {
-        private Func<HostInstanceEntity, string> _nameMapper;
-        private Func<Guid, HostInstanceInsert, HostInstanceEntity> _buildNew;
-        private Func<HostInstanceEntity, XElement> _ser;
-        private Func<XElement, HostInstanceEntity> _deser;
-
-        public HostInstanceXrMapping()
+        public string MapName(HostInstanceEntity entity)
         {
-            _nameMapper = e => e.Name + "_" + e.HostInstanceId.ToString().Substring(0, 8);
-            _buildNew = (id, insert) => HostInstanceFactory.Entity(
+            return entity.Name + "_" + entity.HostInstanceId.ToString().Substring(0, 8);
+        }
+
+        public HostInstanceEntity BuildNew(Guid id, HostInstanceInsert insert) 
+        {
+            return HostInstanceFactory.Entity(
                 id,
                 insert.Name,
                 insert.HostSpecId,
                 insert.InfrastructureId);
-            _ser = e => new XElement(
+        }
+
+        public XElement Ser(HostInstanceEntity entity)
+        {
+            return new XElement(
                 "host_instance",
-                new XAttribute("host_instance_id", e.HostInstanceId.ToString()),
-                new XAttribute("name", e.Name),
-                new XAttribute("host_spec_id", e.HostSpecId.ToString()),
-                new XAttribute("infrastructure_id", e.InfrastructureId));
-            _deser = xe =>
-            {
-                Guid hostInstanceId = Guid.Parse(xe.Attribute("host_instance_id").Value);
-                string name = xe.Attribute("name").Value;
-                Guid hostSpecId = Guid.Parse(xe.Attribute("host_spec_id").Value);
-                Guid infrastructureId = Guid.Parse(xe.Attribute("infrastructure_id").Value);
-
-                return HostInstanceFactory.Entity(
-                    hostInstanceId,
-                    name,
-                    hostSpecId,
-                    infrastructureId);
-            };
+                new XAttribute("host_instance_id", entity.HostInstanceId.ToString()),
+                new XAttribute("name", entity.Name),
+                new XAttribute("host_spec_id", entity.HostSpecId.ToString()),
+                new XAttribute("infrastructure_id", entity.InfrastructureId));
         }
 
-        public Func<HostInstanceEntity, string> NameMapper
+        public HostInstanceEntity Deser(XElement xe)
         {
-            get
-            {
-                return _nameMapper;
-            }
-        }
+            Guid hostInstanceId = Guid.Parse(xe.Attribute("host_instance_id").Value);
+            string name = xe.Attribute("name").Value;
+            Guid hostSpecId = Guid.Parse(xe.Attribute("host_spec_id").Value);
+            Guid infrastructureId = Guid.Parse(xe.Attribute("infrastructure_id").Value);
 
-        public Func<Guid, HostInstanceInsert, HostInstanceEntity> BuildNew
-        {
-            get
-            {
-                return _buildNew;
-            }
-        }
-
-        public Func<HostInstanceEntity, XElement> Ser
-        {
-            get
-            {
-                return _ser;
-            }
-        }
-
-        public Func<XElement, HostInstanceEntity> Deser
-        {
-            get
-            {
-                return _deser;
-            }
+            return HostInstanceFactory.Entity(
+                hostInstanceId,
+                name,
+                hostSpecId,
+                infrastructureId);
         }
     }
 }

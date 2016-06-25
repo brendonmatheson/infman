@@ -23,8 +23,8 @@ namespace cc.bren.infman.framework.xmlrepository
 
     public interface XrInsertMapping<TEntity, TInsert> : XrLoadMapping<TEntity>
     {
-        Func<Guid, TInsert, TEntity> BuildNew { get; }
+        TEntity BuildNew(Guid id, TInsert insert);
 
-        Func<TEntity, XElement> Ser { get; }
+        XElement Ser(TEntity entity);
     }
 }

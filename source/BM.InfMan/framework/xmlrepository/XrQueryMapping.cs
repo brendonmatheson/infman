@@ -18,11 +18,10 @@
 
 namespace cc.bren.infman.framework.xmlrepository
 {
-    using System;
     using System.Xml.Linq;
 
     public interface XrQueryMapping<TEntity> : XrLoadMapping<TEntity>
     {
-        Func<XElement, TEntity> Deser { get; }
+        TEntity Deser(XElement xe);
     }
 }

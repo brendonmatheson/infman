@@ -116,7 +116,7 @@ namespace cc.bren.infman.framework.xmlrepository
             if (mapping == null) { throw new ArgumentNullException("mapping"); }
             if (entity == null) { throw new ArgumentNullException("entity"); }
 
-            string name = mapping.NameMapper(entity);
+            string name = mapping.MapName(entity);
 
             DirectoryInfo result = XR
                 .CollectionDir(conn)

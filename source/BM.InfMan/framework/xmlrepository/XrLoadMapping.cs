@@ -18,10 +18,8 @@
 
 namespace cc.bren.infman.framework.xmlrepository
 {
-    using System;
-
     public interface XrLoadMapping<TEntity>
     {
-        Func<TEntity, string> NameMapper { get; }
+        string MapName(TEntity entity);
     }
 }

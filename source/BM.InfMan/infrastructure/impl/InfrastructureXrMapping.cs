@@ -24,92 +24,57 @@ namespace cc.bren.infman.infrastructure.impl
 {
     public class InfrastructureXrMapping : XrMapping<InfrastructureEntity, InfrastructureInsert>
     {
-        private Func<InfrastructureEntity, string> _nameMapper;
-        private Func<Guid, InfrastructureInsert, InfrastructureEntity> _buildNew;
-        private Func<InfrastructureEntity, XElement> _ser;
-        private Func<XElement, InfrastructureEntity> _deser;
-
-        public InfrastructureXrMapping()
+        public string MapName(InfrastructureEntity entity)
         {
-            _nameMapper = e => e.Name + "_" + e.InfrastructureId.ToString().Substring(0, 8);
-            _buildNew = (id, insert) =>
-            {
-                return insert.InfrastructureType.Apply(
-                    vmwareEsxi: () => VmwareEsxiFactory.Entity(
-                        id,
-                        insert.Name,
-                        ((VmwareEsxiInsert)insert).IpAddress));
-            };
-            _ser = e =>
-            {
-                XElement xe = new XElement(
-                    "infrastructure",
-                    new XAttribute("infrastructure_id", e.InfrastructureId.ToString()),
-                    new XAttribute("type", e.InfrastructureType.InfrastructureTypeCode),
-                    new XAttribute("name", e.Name));
-
-                e.InfrastructureType.Apply(
-                    vmwareEsxi: () =>
-                    {
-                        VmwareEsxiEntity eT = (VmwareEsxiEntity)e;
-
-                        xe.Add(new XAttribute("ip_address", eT.IpAddress));
-                    });
-
-                return xe;
-            };
-            _deser = xe =>
-            {
-                Guid infrastructureId = Guid.Parse(xe.Attribute("infrastructure_id").Value);
-                InfrastructureType infrastructureType = InfrastructureType.ForCode(xe.Attribute("type").Value);
-                string name = xe.Attribute("name").Value;
-
-                InfrastructureEntity entity = infrastructureType.Apply(
-                    vmwareEsxi: () =>
-                    {
-                        string ipAddress = xe.Attribute("ip_address").Value;
-
-                        return VmwareEsxiFactory.Entity(
-                            infrastructureId,
-                            name,
-                            ipAddress);
-                    });
-
-                return entity;
-            };
+            return entity.Name + "_" + entity.InfrastructureId.ToString().Substring(0, 8);
         }
 
-        public Func<InfrastructureEntity, string> NameMapper
+        public InfrastructureEntity BuildNew(Guid id, InfrastructureInsert insert)
         {
-            get
-            {
-                return _nameMapper;
-            }
+            return insert.InfrastructureType.Apply(
+                vmwareEsxi: () => VmwareEsxiFactory.Entity(
+                    id,
+                    insert.Name,
+                    ((VmwareEsxiInsert)insert).IpAddress));
         }
 
-        public Func<Guid, InfrastructureInsert, InfrastructureEntity> BuildNew
+        public XElement Ser(InfrastructureEntity entity)
         {
-            get
-            {
-                return _buildNew;
-            }
+            XElement xe = new XElement(
+                "infrastructure",
+                new XAttribute("infrastructure_id", entity.InfrastructureId.ToString()),
+                new XAttribute("type", entity.InfrastructureType.InfrastructureTypeCode),
+                new XAttribute("name", entity.Name));
+
+            entity.InfrastructureType.Apply(
+                vmwareEsxi: () =>
+                {
+                    VmwareEsxiEntity eT = (VmwareEsxiEntity)entity;
+
+                    xe.Add(new XAttribute("ip_address", eT.IpAddress));
+                });
+
+            return xe;
         }
 
-        public Func<InfrastructureEntity, XElement> Ser
+        public InfrastructureEntity Deser(XElement xe)
         {
-            get
-            {
-                return _ser;
-            }
-        }
+            Guid infrastructureId = Guid.Parse(xe.Attribute("infrastructure_id").Value);
+            InfrastructureType infrastructureType = InfrastructureType.ForCode(xe.Attribute("type").Value);
+            string name = xe.Attribute("name").Value;
 
-        public Func<XElement, InfrastructureEntity> Deser
-        {
-            get
-            {
-                return _deser;
-            }
-        }
+            InfrastructureEntity entity = infrastructureType.Apply(
+                vmwareEsxi: () =>
+                {
+                    string ipAddress = xe.Attribute("ip_address").Value;
 
+                    return VmwareEsxiFactory.Entity(
+                        infrastructureId,
+                        name,
+                        ipAddress);
+                });
+
+            return entity;
+        }
     }
 }
