@@ -21,10 +21,23 @@ namespace cc.bren.infman.framework.xr
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Xml.Linq;
 
     public static class XR
     {
+        public static TEntity Single<TEntity, TFilter>(
+            XrConnection conn,
+            XrQueryMapping<TEntity> mapping,
+            TFilter filter) where TFilter : Filter<TEntity>
+        {
+            if (conn == null) { throw new ArgumentNullException("conn"); }
+            if (mapping == null) { throw new ArgumentNullException("mapping"); }
+            if (filter == null) { throw new ArgumentNullException("filter"); }
+
+            return XR.List(conn, mapping, filter).Single();
+        }
+
         public static IList<TEntity> List<TEntity, TFilter>(
             XrConnection conn,
             XrQueryMapping<TEntity> mapping,

@@ -16,9 +16,8 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.spec
+namespace cc.bren.infman.spec.impl
 {
-    using cc.bren.infman.spec.impl;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Collections.Generic;

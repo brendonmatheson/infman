@@ -22,11 +22,17 @@ namespace cc.bren.infman
     using cc.bren.infman.infrastructure;
     using cc.bren.infman.infrastructure.impl;
     using cc.bren.infman.spec;
+    using cc.bren.infman.workstation;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
 
     public static class Asserts
     {
+
+        //
+        // HostSpec
+        //
+
         public static void AssertHostSpecEntity(
             Guid expectedHostSpecId,
             string expectedName,
@@ -181,6 +187,39 @@ namespace cc.bren.infman
             Assert.AreEqual(expectedName, actual.Name, name + ".Name");
             Assert.AreEqual(expectedHostSpecId, actual.HostSpecId, name + ".HostSpecId");
             Assert.AreEqual(expectedInfrastructureId, actual.InfrastructureId, name + ".InfrastructureId");
+        }
+
+        //
+        // Workstation
+        //
+
+        public static void AssertWorkstation(
+            Guid expectedWorkstationId,
+            string expectedName,
+            string expectedKeyPath,
+            WorkstationEntity actual,
+            string name)
+        {
+            Asserts.AssertWorkstation(
+                expectedName,
+                expectedKeyPath,
+                actual,
+                name);
+
+            Assert.AreEqual(expectedWorkstationId, actual.WorkstationId, name + ".WorkstationId");
+        }
+
+        public static void AssertWorkstation(
+            string expectedName,
+            string expectedKeyPath,
+            WorkstationEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Assert.IsNotNull(actual, name);
+            Assert.AreEqual(expectedName, actual.Name, name + ".Name");
+            Assert.AreEqual(expectedKeyPath, actual.KeyPath, name + ".KeyPath");
         }
 
     }

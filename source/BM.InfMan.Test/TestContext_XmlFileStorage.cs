@@ -20,6 +20,7 @@ namespace cc.bren.infman
 {
     using cc.bren.infman.infrastructure.impl.xr;
     using cc.bren.infman.spec.impl.xr;
+    using cc.bren.infman.workstation.impl.xr;
     using System;
     using System.IO;
 
@@ -27,6 +28,7 @@ namespace cc.bren.infman
     {
         public XrSpecRepository SpecRepository;
         public XrInfrastructureRepository InfrastructureRepository;
+        public XrWorkstationRepository WorkstationRepository;
 
         public TestContext_XmlFileStorage()
         {
@@ -46,6 +48,7 @@ namespace cc.bren.infman
 
             SpecRepository = new XrSpecRepository(storageRoot);
             InfrastructureRepository = new XrInfrastructureRepository(storageRoot);
+            WorkstationRepository = new XrWorkstationRepository(storageRoot);
         }
 
         private int UnixTime()

@@ -64,6 +64,14 @@
     <Compile Include="spec\HostSpecInsert.cs" />
     <Compile Include="spec\SpecRepository.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="workstation\impl\WorkstationFactory.cs" />
+    <Compile Include="workstation\impl\xr\WorkstationXrMapping.cs" />
+    <Compile Include="workstation\impl\xr\XrWorkstationRepository.cs" />
+    <Compile Include="workstation\WorkstationEntity.cs" />
+    <Compile Include="workstation\WorkstationFilter.cs" />
+    <Compile Include="workstation\WorkstationInsert.cs" />
+    <Compile Include="workstation\WorkstationRepository.cs" />
+    <Compile Include="workstation\WorkstationUpdate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
