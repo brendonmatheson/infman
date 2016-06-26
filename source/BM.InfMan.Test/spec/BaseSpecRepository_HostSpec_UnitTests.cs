@@ -18,6 +18,7 @@
 
 namespace cc.bren.infman.spec
 {
+    using cc.bren.infman.spec.impl;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Collections.Generic;

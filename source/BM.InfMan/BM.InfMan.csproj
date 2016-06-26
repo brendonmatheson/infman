@@ -46,6 +46,7 @@
     <Compile Include="infrastructure\impl\xr\InfrastructureXrMapping.cs" />
     <Compile Include="infrastructure\impl\xr\XrInfrastructureRepository.cs" />
     <Compile Include="infrastructure\InfrastructureFilter.cs" />
+    <Compile Include="spec\impl\xr\HostSpecXrMapping.cs" />
     <Compile Include="spec\impl\xr\XrSpecRepository.cs" />
     <Compile Include="infrastructure\InfrastructureRepository.cs" />
     <Compile Include="infrastructure\HostInstanceEntity.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="infrastructure\InfrastructureType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="spec\HostSpecEntity.cs" />
-    <Compile Include="spec\HostSpecFactory.cs" />
+    <Compile Include="spec\impl\HostSpecFactory.cs" />
     <Compile Include="spec\HostSpecFilter.cs" />
     <Compile Include="spec\HostSpecInsert.cs" />
     <Compile Include="spec\SpecRepository.cs" />
