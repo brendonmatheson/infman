@@ -16,30 +16,18 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.infrastructure
+namespace cc.bren.infman.workstation
 {
-    using System.Collections.Generic;
+    using System.Windows;
 
-    public interface InfrastructureRepository
+    /// <summary>
+    /// Interaction logic for WorkstationPropertiesWindow.xaml
+    /// </summary>
+    public partial class WorkstationPropertiesWindow : Window
     {
-
-        //
-        // Infrastructure
-        //
-
-        IList<InfrastructureEntity> InfrastructureList(InfrastructureFilter filter);
-
-        InfrastructureEntity InfrastructureInsert(InfrastructureInsert request);
-
-        //
-        // HostInstance
-        //
-
-        HostInstanceEntity HostInstanceSingle(HostInstanceFilter filter);
-
-        IList<HostInstanceEntity> HostInstanceList(HostInstanceFilter filter);
-
-        HostInstanceEntity HostInstanceInsert(HostInstanceInsert request);
-
+        public WorkstationPropertiesWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

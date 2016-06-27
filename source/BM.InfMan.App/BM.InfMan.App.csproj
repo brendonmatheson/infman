@@ -62,6 +62,17 @@
     <Compile Include="MainViewModel.cs" />
     <Compile Include="spec\Extensions.cs" />
     <Compile Include="spec\HostSpecViewModel.cs" />
+    <Compile Include="UserInterfaceService.cs" />
+    <Compile Include="UserInterfaceServiceImpl.cs" />
+    <Compile Include="workstation\Extensions.cs" />
+    <Compile Include="workstation\WorkstationListItemViewModel.cs" />
+    <Compile Include="workstation\WorkstationListViewModel.cs" />
+    <Compile Include="workstation\WorkstationListWindow.xaml.cs">
+      <DependentUpon>WorkstationListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="workstation\WorkstationPropertiesWindow.xaml.cs">
+      <DependentUpon>WorkstationPropertiesWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +85,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="workstation\WorkstationListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="workstation\WorkstationPropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

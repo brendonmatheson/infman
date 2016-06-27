@@ -18,32 +18,49 @@
 
 namespace cc.bren.infman
 {
+    using cc.bren.infman.framework;
     using cc.bren.infman.infrastructure;
     using cc.bren.infman.spec;
+    using cc.bren.infman.workstation;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Windows.Input;
 
     public class MainViewModel
     {
         private SpecRepository _specRepository;
         private InfrastructureRepository _infrastructureRepository;
+        private WorkstationRepository _workstationRepository;
+        private UserInterfaceService _userInteractionService;
 
         public MainViewModel(
             SpecRepository specRepository,
-            InfrastructureRepository infrastructureRepository)
+            InfrastructureRepository infrastructureRepository,
+            WorkstationRepository workstationRepository,
+            UserInterfaceService userInteractionService)
         {
             if (specRepository == null) { throw new ArgumentNullException("specRepository"); }
             if (infrastructureRepository == null) { throw new ArgumentNullException("infrastructureRepository"); }
+            if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+            if (userInteractionService == null) { throw new ArgumentNullException("userInteractionService"); }
 
             _specRepository = specRepository;
             _infrastructureRepository = infrastructureRepository;
+            _workstationRepository = workstationRepository;
+            _userInteractionService = userInteractionService;
+
+            this.ManageWorkstationsCommand = new RelayCommand(
+                () => true,
+                this.ManageWorkstations);
 
             this.HostSpecs = new ObservableCollection<HostSpecViewModel>();
             this.Infrastructures = new ObservableCollection<InfrastructureListItemViewModel>();
 
             this.Refresh();
         }
+
+        public ICommand ManageWorkstationsCommand { get; private set; }
 
         public ObservableCollection<HostSpecViewModel> HostSpecs { get; private set; }
 
@@ -61,6 +78,12 @@ namespace cc.bren.infman
                 InfrastructureFilter.All());
             this.Infrastructures.Clear();
             this.Infrastructures.AddRange(infrastructures, item => item.ToListItemViewModel());
+        }
+
+        private void ManageWorkstations()
+        {
+            _userInteractionService.WorkstationList(
+                _workstationRepository);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿/*
+﻿<!--
     Infrastructure Manager
 	http://bren.cc/infman
 
@@ -14,32 +14,17 @@
 
     You should have received a copy of the GNU General Public License along with this program; if not, write to the
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+-->
 
-namespace cc.bren.infman.infrastructure
-{
-    using System.Collections.Generic;
-
-    public interface InfrastructureRepository
-    {
-
-        //
-        // Infrastructure
-        //
-
-        IList<InfrastructureEntity> InfrastructureList(InfrastructureFilter filter);
-
-        InfrastructureEntity InfrastructureInsert(InfrastructureInsert request);
-
-        //
-        // HostInstance
-        //
-
-        HostInstanceEntity HostInstanceSingle(HostInstanceFilter filter);
-
-        IList<HostInstanceEntity> HostInstanceList(HostInstanceFilter filter);
-
-        HostInstanceEntity HostInstanceInsert(HostInstanceInsert request);
-
-    }
-}
+<Window x:Class="cc.bren.infman.workstation.WorkstationPropertiesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:cc.bren.infman.workstation"
+        mc:Ignorable="d"
+        Title="WorkstationPropertiesWindow" Height="300" Width="300">
+    <Grid>
+        
+    </Grid>
+</Window>

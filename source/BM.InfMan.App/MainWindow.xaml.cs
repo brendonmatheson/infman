@@ -18,8 +18,12 @@
 
 namespace cc.bren.infman
 {
+    using cc.bren.infman.infrastructure;
     using cc.bren.infman.infrastructure.impl.xr;
+    using cc.bren.infman.spec;
     using cc.bren.infman.spec.impl.xr;
+    using cc.bren.infman.workstation;
+    using cc.bren.infman.workstation.impl.xr;
     using System.IO;
     using System.Windows;
 
@@ -35,10 +39,14 @@ namespace cc.bren.infman
             DirectoryInfo storageRoot = new DirectoryInfo(@"W:\dat\inf_man");
             SpecRepository specRepository = new XrSpecRepository(storageRoot);
             InfrastructureRepository infrastructureRepository = new XrInfrastructureRepository(storageRoot);
+            WorkstationRepository workstationRepository = new XrWorkstationRepository(storageRoot);
+            UserInterfaceService userInteractionService = new UserInterfaceServiceImpl();
 
             this.DataContext = new MainViewModel(
                 specRepository,
-                infrastructureRepository);
+                infrastructureRepository,
+                workstationRepository,
+                userInteractionService);
         }
     }
 }

@@ -24,33 +24,45 @@
         xmlns:local="clr-namespace:cc.bren.infman"
         mc:Ignorable="d"
         Title="Infrastructure Manager" Height="350" Width="525">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="311*"/>
-            <ColumnDefinition Width="206*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="9*"/>
-        </Grid.RowDefinitions>
-        
-        <ListView Margin="4,4,4,4" Grid.RowSpan="2" ItemsSource="{Binding HostSpecs}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="130" />
-                    <GridViewColumn Header="RAM" DisplayMemberBinding="{Binding RamDisplay}" Width="50" />
-                </GridView>
-            </ListView.View>
-        </ListView>
 
-        <ListView Grid.Column="1" Grid.RowSpan="2" Margin="4,4,4,4" ItemsSource="{Binding Infrastructures}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="90" />
-                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding InfrastructureTypeName}" Width="90" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+    <DockPanel>
 
-    </Grid>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Manage">
+                <MenuItem Header="_Workstations" Command="{Binding ManageWorkstationsCommand}" />
+            </MenuItem>
+        </Menu>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="311*"/>
+                <ColumnDefinition Width="206*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+
+            <ListView Margin="4,4,4,4" Grid.RowSpan="2" ItemsSource="{Binding HostSpecs}" Grid.Row="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="130" />
+                        <GridViewColumn Header="RAM" DisplayMemberBinding="{Binding RamDisplay}" Width="50" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <ListView Grid.Column="1" Grid.RowSpan="2" Margin="4,4,4,4" ItemsSource="{Binding Infrastructures}" Grid.Row="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="90" />
+                        <GridViewColumn Header="Type" DisplayMemberBinding="{Binding InfrastructureTypeName}" Width="90" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+
+    </DockPanel>
+    
 </Window>
