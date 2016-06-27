@@ -19,9 +19,16 @@
 namespace cc.bren.infman
 {
     using cc.bren.infman.workstation;
+    using System;
 
     public interface UserInterfaceService
     {
         void WorkstationList(WorkstationRepository workstationRepository);
+
+        void WorkstationAdd(WorkstationRepository workstationRepository);
+
+        void WorkstationEdit(
+            WorkstationRepository workstationRepository,
+            Guid workstationId);
     }
 }

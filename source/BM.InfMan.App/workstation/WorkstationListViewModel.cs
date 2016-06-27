@@ -52,13 +52,17 @@ namespace cc.bren.infman.workstation
         #endregion
 
         private WorkstationRepository _workstationRepository;
+        private UserInterfaceService _userInterfaceService;
 
         public WorkstationListViewModel(
-            WorkstationRepository workstationRepository)
+            WorkstationRepository workstationRepository,
+            UserInterfaceService userInterfaceService)
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+            if (userInterfaceService == null) { throw new ArgumentNullException("userInterfaceService"); }
 
             _workstationRepository = workstationRepository;
+            _userInterfaceService = userInterfaceService;
 
             this.AddCommand = new RelayCommand(
                 () => true,
@@ -77,6 +81,8 @@ namespace cc.bren.infman.workstation
             this.SelectedWorkstation = null;
 
             this.Refresh();
+
+            this.PropertyChanged += WorkstationListViewModel_PropertyChanged;
         }
 
         public ICommand AddCommand { get; private set; }
@@ -118,12 +124,15 @@ namespace cc.bren.infman.workstation
 
         private void Add()
         {
-            Console.WriteLine("Add");
+            _userInterfaceService.WorkstationAdd(
+                _workstationRepository);
         }
 
         private void Edit()
         {
-            Console.WriteLine("Edit");
+            _userInterfaceService.WorkstationEdit(
+                _workstationRepository,
+                this.SelectedWorkstation.WorkstationId);
         }
 
         private void Remove()
@@ -134,6 +143,19 @@ namespace cc.bren.infman.workstation
         private void Close()
         {
             Console.WriteLine("Close");
+        }
+
+        private void WorkstationListViewModel_PropertyChanged(
+            object sender,
+            PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedWorkstation")
+            {
+                // TODO: This seems wrong
+                ((RelayCommand)this.AddCommand).Refresh();
+                ((RelayCommand)this.EditCommand).Refresh();
+                ((RelayCommand)this.RemoveCommand).Refresh();
+            }
         }
     }
 }

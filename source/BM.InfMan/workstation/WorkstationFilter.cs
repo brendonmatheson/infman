@@ -19,21 +19,38 @@
 namespace cc.bren.infman.workstation
 {
     using cc.bren.infman.framework;
+    using System;
 
     public class WorkstationFilter : Filter<WorkstationEntity>
     {
         public static WorkstationFilter All()
         {
-            return new WorkstationFilter();
+            return new WorkstationFilter(null);
         }
 
-        private WorkstationFilter()
+        public static WorkstationFilter ById(Guid? workstationId)
         {
+            return new WorkstationFilter(workstationId);
         }
+
+        private WorkstationFilter(
+            Guid? workstationId)
+        {
+            this.WorkstationId = workstationId;
+        }
+
+        public Guid? WorkstationId { get; private set; }
 
         public bool Matches(WorkstationEntity entity)
         {
-            return true;
+            bool result = true;
+
+            if (this.WorkstationId.HasValue)
+            {
+                result &= this.WorkstationId.Value == entity.WorkstationId;
+            }
+
+            return result;
         }
     }
 }

@@ -60,5 +60,11 @@ namespace cc.bren.infman.framework
         {
             _action();
         }
+
+        public void Refresh()
+        {
+            // TODO: This seems wrong
+            this.OnCanExecuteChanged();
+        }
     }
 }

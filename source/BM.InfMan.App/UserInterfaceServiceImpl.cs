@@ -28,8 +28,36 @@ namespace cc.bren.infman
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
 
-            WorkstationListViewModel vm = new WorkstationListViewModel(workstationRepository);
+            WorkstationListViewModel vm = new WorkstationListViewModel(
+                workstationRepository,
+                this);
             WorkstationListWindow w = new WorkstationListWindow();
+            w.DataContext = vm;
+            w.ShowDialog();
+        }
+
+        public void WorkstationAdd(WorkstationRepository workstationRepository)
+        {
+            if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+
+            WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForAdd(
+                workstationRepository);
+            WorkstationPropertiesWindow w = new WorkstationPropertiesWindow();
+            w.DataContext = vm;
+            w.ShowDialog();
+        }
+
+        public void WorkstationEdit(
+            WorkstationRepository workstationRepository,
+            Guid workstationId)
+        {
+            if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+            if (workstationId == Guid.Empty) { throw new ArgumentException("Value cannot be empty.", "workstationId"); }
+
+            WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForEdit(
+                workstationRepository,
+                workstationId);
+            WorkstationPropertiesWindow w = new WorkstationPropertiesWindow();
             w.DataContext = vm;
             w.ShowDialog();
         }

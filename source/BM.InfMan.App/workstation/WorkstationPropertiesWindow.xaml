@@ -23,8 +23,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cc.bren.infman.workstation"
         mc:Ignorable="d"
-        Title="WorkstationPropertiesWindow" Height="300" Width="300">
+        Title="Workstation Properties" Height="300" Width="300">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="70" />
+            <ColumnDefinition Width="70" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+
+        <!-- Name -->
+        <Label Content="Name:" Margin="4,4,4,4" />
+        <TextBox Grid.ColumnSpan="2" Grid.Column="1" Margin="4,4,4,4" Text="{Binding Name}" />
+
+        <Button Content="OK" Grid.Row="2" Grid.Column="1" Margin="4,4,4,4" />
+        <Button Content="Cancel" Grid.Row="2" Grid.Column="2" Margin="4,4,4,4" />
+
     </Grid>
 </Window>

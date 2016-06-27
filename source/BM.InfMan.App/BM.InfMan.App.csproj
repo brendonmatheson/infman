@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions.cs" />
+    <Compile Include="framework\PropertiesMode.cs" />
     <Compile Include="framework\RelayCommand.cs" />
     <Compile Include="infrastructure\Extensions.cs" />
     <Compile Include="infrastructure\InfrastructureListItemViewModel.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="workstation\WorkstationListWindow.xaml.cs">
       <DependentUpon>WorkstationListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="workstation\WorkstationPropertiesViewModel.cs" />
     <Compile Include="workstation\WorkstationPropertiesWindow.xaml.cs">
       <DependentUpon>WorkstationPropertiesWindow.xaml</DependentUpon>
     </Compile>
