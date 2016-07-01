@@ -194,6 +194,21 @@ namespace cc.bren.infman
         //
 
         public static void AssertWorkstation(
+            WorkstationEntity expected,
+            WorkstationEntity actual,
+            string name)
+        {
+            if (name == null) { throw new ArgumentNullException("name"); }
+
+            Asserts.AssertWorkstation(
+                expected.WorkstationId,
+                expected.Name,
+                expected.KeyPath,
+                actual,
+                name);
+        }
+
+        public static void AssertWorkstation(
             Guid expectedWorkstationId,
             string expectedName,
             string expectedKeyPath,

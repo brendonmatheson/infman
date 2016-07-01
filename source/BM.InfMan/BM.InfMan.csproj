@@ -39,6 +39,8 @@
     <Compile Include="framework\xr\XrMapping.cs" />
     <Compile Include="framework\xr\XrConnection.cs" />
     <Compile Include="framework\xr\XR.cs" />
+    <Compile Include="framework\xr\XrSer.cs" />
+    <Compile Include="framework\xr\XrUpdateMapping.cs" />
     <Compile Include="infrastructure\HostInstanceFilter.cs" />
     <Compile Include="infrastructure\HostInstanceInsert.cs" />
     <Compile Include="infrastructure\impl\HostInstanceFactory.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="spec\HostSpecInsert.cs" />
     <Compile Include="spec\SpecRepository.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="workstation\Extensions.cs" />
     <Compile Include="workstation\impl\WorkstationFactory.cs" />
     <Compile Include="workstation\impl\xr\WorkstationXrMapping.cs" />
     <Compile Include="workstation\impl\xr\XrWorkstationRepository.cs" />

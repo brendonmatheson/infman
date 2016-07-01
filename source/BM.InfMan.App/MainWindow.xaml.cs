@@ -36,7 +36,7 @@ namespace cc.bren.infman
         {
             InitializeComponent();
 
-            DirectoryInfo storageRoot = new DirectoryInfo(@"W:\dat\inf_man");
+            DirectoryInfo storageRoot = new DirectoryInfo(@"W:\wrk\mv_sys_infman_config");
             SpecRepository specRepository = new XrSpecRepository(storageRoot);
             InfrastructureRepository infrastructureRepository = new XrInfrastructureRepository(storageRoot);
             WorkstationRepository workstationRepository = new XrWorkstationRepository(storageRoot);

@@ -19,12 +19,9 @@
 namespace cc.bren.infman.framework.xr
 {
     using System;
-    using System.Xml.Linq;
 
-    public interface XrInsertMapping<TEntity, TInsert> : XrLoadMapping<TEntity>
+    public interface XrInsertMapping<TEntity, TInsert> : XrSer<TEntity>, XrLoadMapping<TEntity>
     {
         TEntity BuildNew(Guid id, TInsert insert);
-
-        XElement Ser(TEntity entity);
     }
 }

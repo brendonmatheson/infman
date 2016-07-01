@@ -42,5 +42,15 @@ namespace cc.bren.infman.workstation.impl.xr
         {
             base.WorkstationList_ValidRequest_Succeeds(TC.WorkstationRepository);
         }
+
+        //
+        // WorkstationUpdate
+        //
+
+        [TestMethod]
+        public void WorkstationUpdate_ValidRequest_Success()
+        {
+            base.WorkstationUpdate_ValidRequest_Success(TC.WorkstationRepository);
+        }
     }
 }

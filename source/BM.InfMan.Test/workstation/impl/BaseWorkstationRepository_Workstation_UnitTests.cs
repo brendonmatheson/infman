@@ -47,5 +47,31 @@ namespace cc.bren.infman.workstation.impl
             Asserts.AssertWorkstation("fooName", "fooKeyPath", result[1], "result[1]");
         }
 
+        //
+        // WorkstationUpdate
+        //
+
+        protected void WorkstationUpdate_ValidRequest_Success(
+            WorkstationRepository workstationRepository)
+        {
+            if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+
+            // Setup
+            WorkstationEntity w0 = workstationRepository.WorkstationInsert(WorkstationFactory.Insert(
+                "fooName",
+                "fooKeyPath"));
+
+            // Execute
+            WorkstationEntity result = workstationRepository.WorkstationUpdate(WorkstationFactory.Update(
+                w0.WorkstationId,
+                "updatedName",
+                "updatedKeyPath"));
+
+            // Verify
+            Assert.IsNotNull(result, "result");
+            Asserts.AssertWorkstation(
+                w0.WorkstationId, "updatedName", "updatedKeyPath",
+                result, "result");
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace cc.bren.infman.workstation.impl.xr
             _workstationConn = new XrConnection(
                 storageRoot,
                 "workstation");
-            _workstationMapping = new WorkstationXrMapping();
+            _workstationMapping = new WorkstationXrMapping(this);
         }
 
         //
@@ -64,7 +64,9 @@ namespace cc.bren.infman.workstation.impl.xr
 
         public WorkstationEntity WorkstationUpdate(WorkstationUpdate update)
         {
-            throw new NotImplementedException();
+            if (update == null) { throw new ArgumentNullException("update"); }
+
+            return XR.Update(_workstationConn, _workstationMapping, update);
         }
     }
 }

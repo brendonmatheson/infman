@@ -16,12 +16,13 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-using System;
 namespace cc.bren.infman.workstation
 {
     using cc.bren.infman.framework;
+    using impl;
     using System;
     using System.ComponentModel;
+    using System.Windows.Input;
 
     public class WorkstationPropertiesViewModel : INotifyPropertyChanged
     {
@@ -49,6 +50,7 @@ namespace cc.bren.infman.workstation
 
         #endregion
 
+        private PropertiesMode _propertiesMode;
         private WorkstationRepository _workstationRepository;
 
         public static WorkstationPropertiesViewModel ForAdd(
@@ -83,23 +85,82 @@ namespace cc.bren.infman.workstation
             if (propertiesMode == null) { throw new ArgumentNullException("propertiesMode"); }
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
 
+            _propertiesMode = propertiesMode;
             _workstationRepository = workstationRepository;
 
-            propertiesMode.Apply(
+            this.CommitCommand = new RelayCommand(
+                () => true,
+                this.Commit);
+
+            _propertiesMode.Apply(
                 add: () =>
                 {
+                    this.WorkstationId = null;
                     this.Name = string.Empty;
+                    this.KeyPath = string.Empty;
                 },
                 edit: () =>
                 {
                     if (workstationId == null) { throw new ArgumentNullException("workstationId"); }
 
-                    this.WorkstationId = workstationId;
+                    WorkstationEntity entity = _workstationRepository.WorkstationSingle(WorkstationFilter.ById(
+                        workstationId.Value));
 
-                    WorkstationEntity entity = _workstationRepository.WorkstationSingle(WorkstationFilter.ById(workstationId.Value));
+                    this.WorkstationId = workstationId;
                     this.Name = entity.Name;
+                    this.KeyPath = entity.KeyPath;
                 });
         }
+
+        #region CommitCommand
+
+        private ICommand _commitCommand = null;
+        private bool _commitCommand_set = false;
+
+        public ICommand CommitCommand
+        {
+            get
+            {
+                if (!_commitCommand_set)
+                {
+                    throw new InvalidOperationException("commitCommand not set.");
+                }
+                if (_commitCommand == null)
+                {
+                    throw new InvalidOperationException("commitCommand should not be null");
+                }
+                return _commitCommand;
+            }
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", "commitCommand cannot be null");
+                }
+                bool changing = !_commitCommand_set || _commitCommand != value;
+                if (changing)
+                {
+                    _commitCommand_set = true;
+                    _commitCommand = value;
+                }
+            }
+        }
+
+        private void ClearCommitCommand()
+        {
+            if (_commitCommand_set)
+            {
+                _commitCommand_set = false;
+                _commitCommand = null;
+            }
+        }
+
+        private bool HasCommitCommand()
+        {
+            return _commitCommand_set;
+        }
+
+        #endregion
 
         private Guid? WorkstationId { get; set; }
 
@@ -121,5 +182,42 @@ namespace cc.bren.infman.workstation
         }
 
         #endregion
+
+        #region KeyPath
+
+        private string _keyPath;
+
+        public string KeyPath
+        {
+            get
+            {
+                return _keyPath;
+            }
+            set
+            {
+                _keyPath = value;
+                this.OnPropertyChanged(nameof(this.KeyPath));
+            }
+        }
+
+        #endregion
+
+        private void Commit()
+        {
+            _propertiesMode.Apply(
+                add: () =>
+                {
+                    _workstationRepository.WorkstationInsert(WorkstationFactory.Insert(
+                        this.Name,
+                        this.KeyPath));
+                },
+                edit: () =>
+                {
+                    _workstationRepository.WorkstationUpdate(WorkstationFactory.Update(
+                        this.WorkstationId.Value,
+                        this.Name,
+                        this.KeyPath));
+                });
+        }
     }
 }

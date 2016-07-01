@@ -23,7 +23,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cc.bren.infman.workstation"
         mc:Ignorable="d"
-        Title="Workstation Properties" Height="300" Width="300">
+        Title="Workstation Properties" Height="150" Width="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -31,6 +31,7 @@
             <ColumnDefinition Width="70" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="35" />
@@ -40,8 +41,12 @@
         <Label Content="Name:" Margin="4,4,4,4" />
         <TextBox Grid.ColumnSpan="2" Grid.Column="1" Margin="4,4,4,4" Text="{Binding Name}" />
 
-        <Button Content="OK" Grid.Row="2" Grid.Column="1" Margin="4,4,4,4" />
-        <Button Content="Cancel" Grid.Row="2" Grid.Column="2" Margin="4,4,4,4" />
+        <!-- KeyPath -->
+        <Label Grid.Row="1" Content="Key Path:" Margin="4,4,4,4" />
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="4,4,4,4" Text="{Binding KeyPath}" />
+
+        <Button Content="OK" Grid.Row="3" Grid.Column="1" Margin="4,4,4,4" Command="{Binding CommitCommand}" />
+        <Button Content="Cancel" Grid.Row="3" Grid.Column="2" Margin="4,4,4,4" />
 
     </Grid>
 </Window>

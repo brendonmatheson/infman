@@ -18,20 +18,22 @@
 
 namespace cc.bren.infman.workstation
 {
-    public interface WorkstationRepository_Workstation_UnitTests
+    using cc.bren.infman.workstation.impl;
+    using System;
+
+    public static class Extensions
     {
+        public static WorkstationEntity Mutate(
+            this WorkstationEntity entity,
+            string name,
+            string keyPath)
+        {
+            if (entity == null) { throw new ArgumentNullException("entity"); }
 
-        //
-        // WorkstationList
-        //
-
-        void WorkstationList_ValidRequest_Succeeds();
-
-        //
-        // WorkstationUpdate
-        //
-
-        void WorkstationUpdate_ValidRequest_Success();
-
+            return WorkstationFactory.Entity(
+                entity.WorkstationId,
+                name,
+                keyPath);
+        }
     }
 }

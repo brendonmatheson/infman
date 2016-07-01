@@ -92,6 +92,27 @@ namespace cc.bren.infman.framework.xr
             return entity;
         }
 
+        public static TEntity Update<TEntity, TUpdate>(
+            XrConnection conn,
+            XrUpdateMapping<TEntity, TUpdate> mapping,
+            TUpdate request)
+        {
+            if (conn == null) { throw new ArgumentNullException("conn"); }
+            if (mapping == null) { throw new ArgumentNullException("mapping"); }
+            if (request == null) { throw new ArgumentNullException("request"); }
+
+            TEntity entity = mapping.BuildNew(request);
+
+            XElement xe = mapping.Ser(entity);
+
+            DirectoryInfo entityDir = XR.EntityDir(conn, mapping, entity);
+            FileInfo entityFile = XR.EntityFile(conn, entityDir);
+
+            xe.Save(entityFile.FullName);
+
+            return entity;
+        }
+
         public static TEntity LoadEntity<TEntity>(
             XrConnection conn,
             XrQueryMapping<TEntity> mapping,

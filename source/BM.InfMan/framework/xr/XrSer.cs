@@ -16,22 +16,12 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman.workstation
+namespace cc.bren.infman.framework.xr
 {
-    public interface WorkstationRepository_Workstation_UnitTests
+    using System.Xml.Linq;
+
+    public interface XrSer<TEntity>
     {
-
-        //
-        // WorkstationList
-        //
-
-        void WorkstationList_ValidRequest_Succeeds();
-
-        //
-        // WorkstationUpdate
-        //
-
-        void WorkstationUpdate_ValidRequest_Success();
-
+        XElement Ser(TEntity entity);
     }
 }

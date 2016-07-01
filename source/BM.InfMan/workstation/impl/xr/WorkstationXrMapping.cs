@@ -22,13 +22,25 @@ namespace cc.bren.infman.workstation.impl.xr
     using System.Xml.Linq;
     using cc.bren.infman.framework.xr;
 
-    public class WorkstationXrMapping : XrMapping<WorkstationEntity, WorkstationInsert>
+    public class WorkstationXrMapping :
+        XrMapping<WorkstationEntity, WorkstationInsert>,
+        XrUpdateMapping<WorkstationEntity, WorkstationUpdate>
     {
+        private WorkstationRepository _workstationRepository;
+
+        public WorkstationXrMapping(
+            WorkstationRepository workstationRepository)
+        {
+            if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+
+            _workstationRepository = workstationRepository;
+        }
+
         public string MapName(WorkstationEntity entity)
         {
             if (entity == null) { throw new ArgumentNullException("entity"); }
 
-            return entity.Name + "_" + entity.WorkstationId.ToString().Substring(0, 8);
+            return entity.WorkstationId.ToString();
         }
 
         public WorkstationEntity BuildNew(
@@ -41,6 +53,18 @@ namespace cc.bren.infman.workstation.impl.xr
                 id,
                 insert.Name,
                 insert.KeyPath);
+        }
+
+        public WorkstationEntity BuildNew(WorkstationUpdate update)
+        {
+            if (update == null) { throw new ArgumentNullException("update"); }
+
+            WorkstationEntity current = _workstationRepository.WorkstationSingle(WorkstationFilter.ById(
+                update.WorkstationId));
+
+            return current.Mutate(
+                update.Name,
+                update.KeyPath);
         }
 
         public XElement Ser(WorkstationEntity entity)
