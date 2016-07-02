@@ -20,7 +20,7 @@ namespace cc.bren.infman.framework.xr
 {
     using System.Xml.Linq;
 
-    public interface XrQueryMapping<TEntity> : XrLoadMapping<TEntity>
+    public interface XrQueryMapping<TEntity> : XrNameMapping<TEntity>
     {
         TEntity Deser(XElement xe);
     }

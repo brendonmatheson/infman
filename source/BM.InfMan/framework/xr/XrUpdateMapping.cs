@@ -18,7 +18,7 @@
 
 namespace cc.bren.infman.framework.xr
 {
-    public interface XrUpdateMapping<TEntity, TUpdate> : XrSer<TEntity>, XrLoadMapping<TEntity>
+    public interface XrUpdateMapping<TEntity, TUpdate> : XrSer<TEntity>, XrNameMapping<TEntity>
     {
         TEntity BuildNew(TUpdate update);
     }

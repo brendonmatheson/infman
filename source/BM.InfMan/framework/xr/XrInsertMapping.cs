@@ -20,7 +20,7 @@ namespace cc.bren.infman.framework.xr
 {
     using System;
 
-    public interface XrInsertMapping<TEntity, TInsert> : XrSer<TEntity>, XrLoadMapping<TEntity>
+    public interface XrInsertMapping<TEntity, TInsert> : XrSer<TEntity>, XrNameMapping<TEntity>
     {
         TEntity BuildNew(Guid id, TInsert insert);
     }

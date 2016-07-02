@@ -137,7 +137,9 @@ namespace cc.bren.infman.workstation
 
         private void Remove()
         {
-            Console.WriteLine("Remove");
+            _workstationRepository.WorkstationDelete(this.SelectedWorkstation.ToEntity());
+            this.Workstations.Remove(this.SelectedWorkstation);
+            this.SelectedWorkstation = null;
         }
 
         private void Close()

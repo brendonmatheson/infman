@@ -68,5 +68,12 @@ namespace cc.bren.infman.workstation.impl.xr
 
             return XR.Update(_workstationConn, _workstationMapping, update);
         }
+
+        public void WorkstationDelete(WorkstationEntity entity)
+        {
+            if (entity == null) { throw new ArgumentNullException("entity"); }
+
+            XR.Delete(_workstationConn, _workstationMapping, entity);
+        }
     }
 }

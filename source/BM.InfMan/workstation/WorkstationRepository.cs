@@ -35,5 +35,7 @@ namespace cc.bren.infman.workstation
 
         WorkstationEntity WorkstationUpdate(WorkstationUpdate update);
 
+        void WorkstationDelete(WorkstationEntity entity);
+
     }
 }

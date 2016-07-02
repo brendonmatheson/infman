@@ -18,6 +18,7 @@
 
 namespace cc.bren.infman.workstation
 {
+    using cc.bren.infman.workstation.impl;
     using System;
 
     public static class Extensions
@@ -31,6 +32,17 @@ namespace cc.bren.infman.workstation
                 entity.WorkstationId,
                 entity.Name,
                 entity.KeyPath);
+        }
+
+        public static WorkstationEntity ToEntity(
+            this WorkstationListItemViewModel vm)
+        {
+            if (vm == null) { throw new ArgumentNullException("vm"); }
+
+            return WorkstationFactory.Entity(
+                vm.WorkstationId,
+                vm.Name,
+                vm.KeyPath);
         }
     }
 }

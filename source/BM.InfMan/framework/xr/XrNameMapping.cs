@@ -18,7 +18,7 @@
 
 namespace cc.bren.infman.framework.xr
 {
-    public interface XrLoadMapping<TEntity>
+    public interface XrNameMapping<TEntity>
     {
         string MapName(TEntity entity);
     }

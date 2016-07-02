@@ -16,6 +16,7 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+using System;
 namespace cc.bren.infman.framework.xr
 {
     using System;
@@ -113,7 +114,23 @@ namespace cc.bren.infman.framework.xr
             return entity;
         }
 
-        public static TEntity LoadEntity<TEntity>(
+        public static bool Delete<TEntity>(
+            XrConnection conn,
+            XrNameMapping<TEntity> mapping,
+            TEntity entity)
+        {
+            if (conn == null) { throw new ArgumentNullException("conn"); }
+            if (mapping == null) { throw new ArgumentNullException("mapping"); }
+            if (entity == null) { throw new ArgumentNullException("entity"); }
+
+            DirectoryInfo entityDir = XR.EntityDir(conn, mapping, entity);
+
+            entityDir.Delete(true);
+
+            return true;
+        }
+
+        private static TEntity LoadEntity<TEntity>(
             XrConnection conn,
             XrQueryMapping<TEntity> mapping,
             DirectoryInfo entityDir)
@@ -143,7 +160,7 @@ namespace cc.bren.infman.framework.xr
 
         private static DirectoryInfo EntityDir<TEntity>(
             XrConnection conn,
-            XrLoadMapping<TEntity> mapping,
+            XrNameMapping<TEntity> mapping,
             TEntity entity)
         {
             if (conn == null) { throw new ArgumentNullException("conn"); }

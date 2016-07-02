@@ -34,7 +34,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="framework\Filter.cs" />
     <Compile Include="framework\xr\XrInsertMapping.cs" />
-    <Compile Include="framework\xr\XrLoadMapping.cs" />
+    <Compile Include="framework\xr\XrNameMapping.cs" />
     <Compile Include="framework\xr\XrQueryMapping.cs" />
     <Compile Include="framework\xr\XrMapping.cs" />
     <Compile Include="framework\xr\XrConnection.cs" />
