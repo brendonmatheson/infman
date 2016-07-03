@@ -23,9 +23,11 @@ namespace cc.bren.infman
 
     public interface UserInterfaceService
     {
-        void WorkstationList(WorkstationRepository workstationRepository);
+        void WorkstationList(
+            WorkstationRepository workstationRepository);
 
-        void WorkstationAdd(WorkstationRepository workstationRepository);
+        void WorkstationAdd(
+            WorkstationRepository workstationRepository);
 
         void WorkstationEdit(
             WorkstationRepository workstationRepository,

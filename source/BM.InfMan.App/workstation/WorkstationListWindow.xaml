@@ -23,7 +23,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cc.bren.infman.workstation"
         mc:Ignorable="d"
-        Title="Workstations" Height="300" Width="400">
+        Title="Workstations" Height="300" Width="400"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>

@@ -20,6 +20,8 @@ namespace cc.bren.infman
 {
     using cc.bren.infman.workstation;
     using System;
+    using System.Linq;
+    using System.Windows;
 
     public class UserInterfaceServiceImpl : UserInterfaceService
     {
@@ -31,18 +33,25 @@ namespace cc.bren.infman
             WorkstationListViewModel vm = new WorkstationListViewModel(
                 workstationRepository,
                 this);
-            WorkstationListWindow w = new WorkstationListWindow();
+            WorkstationListWindow w = new WorkstationListWindow()
+            {
+                Owner = UserInterfaceServiceImpl.FindActiveWindow()
+            };
             w.DataContext = vm;
             w.ShowDialog();
         }
 
-        public void WorkstationAdd(WorkstationRepository workstationRepository)
+        public void WorkstationAdd(
+            WorkstationRepository workstationRepository)
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
 
             WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForAdd(
                 workstationRepository);
-            WorkstationPropertiesWindow w = new WorkstationPropertiesWindow();
+            WorkstationPropertiesWindow w = new WorkstationPropertiesWindow()
+            {
+                Owner = UserInterfaceServiceImpl.FindActiveWindow()
+            };
             w.DataContext = vm;
             w.ShowDialog();
         }
@@ -57,9 +66,23 @@ namespace cc.bren.infman
             WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForEdit(
                 workstationRepository,
                 workstationId);
-            WorkstationPropertiesWindow w = new WorkstationPropertiesWindow();
+            WorkstationPropertiesWindow w = new WorkstationPropertiesWindow()
+            {
+                Owner = UserInterfaceServiceImpl.FindActiveWindow()
+            };
             w.DataContext = vm;
             w.ShowDialog();
+        }
+
+        /// <summary>
+        /// Gets the active window or dialog for use as the Owner of a new dialog window.
+        /// 
+        /// This assumes only one window is active.  It's not a pretty solution itself but it side-steps the challenges
+        /// of getting a Window reference in MVVM.
+        /// </summary>
+        private static Window FindActiveWindow()
+        {
+            return Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
         }
     }
 }
