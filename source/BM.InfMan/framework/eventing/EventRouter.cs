@@ -16,25 +16,16 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman
+namespace cc.bren.infman.framework.eventing
 {
-    using cc.bren.infman.framework.eventing;
-    using cc.bren.infman.workstation;
     using System;
 
-    public interface UserInterfaceService
+    public interface EventRouter
     {
-        void WorkstationList(
-            EventRouter er,
-            WorkstationRepository workstationRepository);
+        void Fire<TEvent>(TEvent evt) where TEvent : Event;
 
-        void WorkstationAdd(
-            EventRouter er,
-            WorkstationRepository workstationRepository);
+        void Register<TEvent>(Action<TEvent> handler) where TEvent : Event;
 
-        void WorkstationEdit(
-            EventRouter er,
-            WorkstationRepository workstationRepository,
-            Guid workstationId);
+        void Unregister<TEvent>(Action<TEvent> handler) where TEvent : Event;
     }
 }

@@ -19,10 +19,12 @@
 namespace cc.bren.infman.workstation
 {
     using cc.bren.infman.framework;
+    using cc.bren.infman.framework.eventing;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows.Input;
 
     public class WorkstationListViewModel : INotifyPropertyChanged
@@ -51,19 +53,23 @@ namespace cc.bren.infman.workstation
 
         #endregion
 
+        private EventRouter _er;
         private WorkstationRepository _workstationRepository;
         private UserInterfaceService _userInterfaceService;
         private Action _closeAction;
 
         public WorkstationListViewModel(
+            EventRouter er,
             WorkstationRepository workstationRepository,
             UserInterfaceService userInterfaceService,
             Action closeAction)
         {
+            if (er == null) { throw new ArgumentNullException("er"); }
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
             if (userInterfaceService == null) { throw new ArgumentNullException("userInterfaceService"); }
             if (closeAction == null) { throw new ArgumentNullException("closeAction"); }
 
+            _er = er;
             _workstationRepository = workstationRepository;
             _userInterfaceService = userInterfaceService;
             _closeAction = closeAction;
@@ -87,6 +93,8 @@ namespace cc.bren.infman.workstation
             this.Refresh();
 
             this.PropertyChanged += WorkstationListViewModel_PropertyChanged;
+
+            _er.Register<WorkstationEditedEvent>(this.HandleWorkstationEdited);
         }
 
         public ICommand AddCommand { get; private set; }
@@ -129,12 +137,14 @@ namespace cc.bren.infman.workstation
         private void Add()
         {
             _userInterfaceService.WorkstationAdd(
+                _er,
                 _workstationRepository);
         }
 
         private void Edit()
         {
             _userInterfaceService.WorkstationEdit(
+                _er,
                 _workstationRepository,
                 this.SelectedWorkstation.WorkstationId);
         }
@@ -148,7 +158,17 @@ namespace cc.bren.infman.workstation
 
         private void Close()
         {
+            _er.Unregister<WorkstationEditedEvent>(this.HandleWorkstationEdited);
             _closeAction();
+        }
+
+        private void HandleWorkstationEdited(WorkstationEditedEvent evt)
+        {
+            WorkstationEntity updated = _workstationRepository.WorkstationSingle(WorkstationFilter.ById(
+                evt.WorkstationId));
+
+            WorkstationListItemViewModel vm = this.Workstations.Single(x => x.WorkstationId == evt.WorkstationId);
+            vm.RefreshFrom(updated);
         }
 
         private void WorkstationListViewModel_PropertyChanged(

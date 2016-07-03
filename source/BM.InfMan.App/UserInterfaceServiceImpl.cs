@@ -18,6 +18,7 @@
 
 namespace cc.bren.infman
 {
+    using cc.bren.infman.framework.eventing;
     using cc.bren.infman.workstation;
     using System;
     using System.Linq;
@@ -26,8 +27,10 @@ namespace cc.bren.infman
     public class UserInterfaceServiceImpl : UserInterfaceService
     {
         public void WorkstationList(
+            EventRouter er,
             WorkstationRepository workstationRepository)
         {
+            if (er == null) { throw new ArgumentNullException("er"); }
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
 
             WorkstationListWindow w = new WorkstationListWindow()
@@ -35,6 +38,7 @@ namespace cc.bren.infman
                 Owner = UserInterfaceServiceImpl.FindActiveWindow()
             };
             WorkstationListViewModel vm = new WorkstationListViewModel(
+                er,
                 workstationRepository,
                 this,
                 w.Close);
@@ -43,6 +47,7 @@ namespace cc.bren.infman
         }
 
         public void WorkstationAdd(
+            EventRouter er,
             WorkstationRepository workstationRepository)
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
@@ -52,6 +57,7 @@ namespace cc.bren.infman
                 Owner = UserInterfaceServiceImpl.FindActiveWindow()
             };
             WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForAdd(
+                er,
                 workstationRepository,
                 w.Close);
             w.DataContext = vm;
@@ -59,6 +65,7 @@ namespace cc.bren.infman
         }
 
         public void WorkstationEdit(
+            EventRouter er,
             WorkstationRepository workstationRepository,
             Guid workstationId)
         {
@@ -70,6 +77,7 @@ namespace cc.bren.infman
                 Owner = UserInterfaceServiceImpl.FindActiveWindow()
             };
             WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForEdit(
+                er,
                 workstationRepository,
                 w.Close,
                 workstationId);

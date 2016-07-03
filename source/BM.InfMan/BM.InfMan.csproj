@@ -32,6 +32,9 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="framework\eventing\Event.cs" />
+    <Compile Include="framework\eventing\EventRouter.cs" />
+    <Compile Include="framework\eventing\impl\EventRouterImpl.cs" />
     <Compile Include="framework\Filter.cs" />
     <Compile Include="framework\xr\XrInsertMapping.cs" />
     <Compile Include="framework\xr\XrNameMapping.cs" />

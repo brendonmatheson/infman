@@ -16,25 +16,21 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-namespace cc.bren.infman
+namespace cc.bren.infman.workstation
 {
     using cc.bren.infman.framework.eventing;
-    using cc.bren.infman.workstation;
     using System;
 
-    public interface UserInterfaceService
+    public class WorkstationEditedEvent : Event
     {
-        void WorkstationList(
-            EventRouter er,
-            WorkstationRepository workstationRepository);
+        public WorkstationEditedEvent(
+            Guid workstationId)
+        {
+            if (workstationId == Guid.Empty) { throw new ArgumentException("Value cannot be empty.", "workstationId"); }
 
-        void WorkstationAdd(
-            EventRouter er,
-            WorkstationRepository workstationRepository);
+            this.WorkstationId = workstationId;
+        }
 
-        void WorkstationEdit(
-            EventRouter er,
-            WorkstationRepository workstationRepository,
-            Guid workstationId);
+        public Guid WorkstationId { get; }
     }
 }

@@ -19,6 +19,7 @@
 namespace cc.bren.infman
 {
     using cc.bren.infman.framework;
+    using cc.bren.infman.framework.eventing;
     using cc.bren.infman.infrastructure;
     using cc.bren.infman.spec;
     using cc.bren.infman.workstation;
@@ -29,22 +30,26 @@ namespace cc.bren.infman
 
     public class MainViewModel
     {
+        private EventRouter _er;
         private SpecRepository _specRepository;
         private InfrastructureRepository _infrastructureRepository;
         private WorkstationRepository _workstationRepository;
         private UserInterfaceService _userInteractionService;
 
         public MainViewModel(
+            EventRouter er,
             SpecRepository specRepository,
             InfrastructureRepository infrastructureRepository,
             WorkstationRepository workstationRepository,
             UserInterfaceService userInteractionService)
         {
+            if (er == null) { throw new ArgumentNullException("er"); }
             if (specRepository == null) { throw new ArgumentNullException("specRepository"); }
             if (infrastructureRepository == null) { throw new ArgumentNullException("infrastructureRepository"); }
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
             if (userInteractionService == null) { throw new ArgumentNullException("userInteractionService"); }
 
+            _er = er;
             _specRepository = specRepository;
             _infrastructureRepository = infrastructureRepository;
             _workstationRepository = workstationRepository;
@@ -83,6 +88,7 @@ namespace cc.bren.infman
         private void ManageWorkstations()
         {
             _userInteractionService.WorkstationList(
+                _er,
                 _workstationRepository);
         }
     }

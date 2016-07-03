@@ -19,9 +19,25 @@
 namespace cc.bren.infman.workstation
 {
     using System;
+    using System.ComponentModel;
 
-    public class WorkstationListItemViewModel
+    public class WorkstationListItemViewModel : INotifyPropertyChanged
     {
+        #region PropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(
+            string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+
         public WorkstationListItemViewModel(
             Guid workstationId,
             string name,
@@ -37,8 +53,50 @@ namespace cc.bren.infman.workstation
 
         public Guid WorkstationId { get; private set; }
 
-        public string Name { get; private set; }
+        #region Name
 
-        public string KeyPath { get; private set; }
+        private string _name;
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            private set
+            {
+                _name = value;
+                this.OnPropertyChanged(nameof(this.Name));
+            }
+        }
+
+        #endregion
+
+        #region KeyPath
+
+        private string _keyPath;
+
+        public string KeyPath
+        {
+            get
+            {
+                return _keyPath;
+            }
+            private set
+            {
+                _keyPath = value;
+                this.OnPropertyChanged(nameof(this.KeyPath));
+            }
+        }
+
+        #endregion
+
+        public void RefreshFrom(WorkstationEntity entity)
+        {
+            if (entity == null) { throw new ArgumentNullException("entity"); }
+
+            this.Name = entity.Name;
+            this.KeyPath = entity.KeyPath;
+        }
     }
 }

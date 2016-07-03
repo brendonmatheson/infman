@@ -66,6 +66,7 @@
     <Compile Include="UserInterfaceService.cs" />
     <Compile Include="UserInterfaceServiceImpl.cs" />
     <Compile Include="workstation\Extensions.cs" />
+    <Compile Include="workstation\WorkstationEditedEvent.cs" />
     <Compile Include="workstation\WorkstationListItemViewModel.cs" />
     <Compile Include="workstation\WorkstationListViewModel.cs" />
     <Compile Include="workstation\WorkstationListWindow.xaml.cs">

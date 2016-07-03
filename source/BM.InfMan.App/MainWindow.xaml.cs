@@ -18,6 +18,8 @@
 
 namespace cc.bren.infman
 {
+    using cc.bren.infman.framework.eventing;
+    using cc.bren.infman.framework.eventing.impl;
     using cc.bren.infman.infrastructure;
     using cc.bren.infman.infrastructure.impl.xr;
     using cc.bren.infman.spec;
@@ -36,6 +38,7 @@ namespace cc.bren.infman
         {
             InitializeComponent();
 
+            EventRouter er = new EventRouterImpl();
             DirectoryInfo storageRoot = new DirectoryInfo(@"W:\wrk\mv_sys_infman_config");
             SpecRepository specRepository = new XrSpecRepository(storageRoot);
             InfrastructureRepository infrastructureRepository = new XrInfrastructureRepository(storageRoot);
@@ -43,6 +46,7 @@ namespace cc.bren.infman
             UserInterfaceService userInteractionService = new UserInterfaceServiceImpl();
 
             this.DataContext = new MainViewModel(
+                er,
                 specRepository,
                 infrastructureRepository,
                 workstationRepository,

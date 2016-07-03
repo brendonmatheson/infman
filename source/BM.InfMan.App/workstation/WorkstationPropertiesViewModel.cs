@@ -19,6 +19,7 @@
 namespace cc.bren.infman.workstation
 {
     using cc.bren.infman.framework;
+    using cc.bren.infman.framework.eventing;
     using impl;
     using System;
     using System.ComponentModel;
@@ -50,18 +51,22 @@ namespace cc.bren.infman.workstation
 
         #endregion
 
+        private EventRouter _er;
         private PropertiesMode _propertiesMode;
         private WorkstationRepository _workstationRepository;
         private Action _closeAction;
 
         public static WorkstationPropertiesViewModel ForAdd(
+            EventRouter er,
             WorkstationRepository workstationRepository,
             Action closeAction)
         {
+            if (er == null) { throw new ArgumentNullException("er"); }
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
             if (closeAction == null) { throw new ArgumentNullException("closeAction"); }
 
             return new WorkstationPropertiesViewModel(
+                er,
                 PropertiesMode.Add,
                 workstationRepository,
                 closeAction,
@@ -69,15 +74,18 @@ namespace cc.bren.infman.workstation
         }
 
         public static WorkstationPropertiesViewModel ForEdit(
+            EventRouter er,
             WorkstationRepository workstationRepository,
             Action closeAction,
             Guid workstationId)
         {
+            if (er == null) { throw new ArgumentNullException("er"); }
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
             if (closeAction == null) { throw new ArgumentNullException("closeAction"); }
             if (workstationId == Guid.Empty) { throw new ArgumentException("Value cannot be empty.", "workstationId"); }
 
             return new WorkstationPropertiesViewModel(
+                er,
                 PropertiesMode.Edit,
                 workstationRepository,
                 closeAction,
@@ -85,15 +93,18 @@ namespace cc.bren.infman.workstation
         }
 
         private WorkstationPropertiesViewModel(
+            EventRouter er,
             PropertiesMode propertiesMode,
             WorkstationRepository workstationRepository,
             Action closeAction,
             Guid? workstationId)
         {
+            if (er == null) { throw new ArgumentNullException("er"); }
             if (propertiesMode == null) { throw new ArgumentNullException("propertiesMode"); }
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
             if (closeAction == null) { throw new ArgumentNullException("closeAction"); }
 
+            _er = er;
             _propertiesMode = propertiesMode;
             _workstationRepository = workstationRepository;
             _closeAction = closeAction;
@@ -281,6 +292,8 @@ namespace cc.bren.infman.workstation
                         this.WorkstationId.Value,
                         this.Name,
                         this.KeyPath));
+
+                    _er.Fire<WorkstationEditedEvent>(new WorkstationEditedEvent(this.WorkstationId.Value));
                 });
 
             _closeAction();
