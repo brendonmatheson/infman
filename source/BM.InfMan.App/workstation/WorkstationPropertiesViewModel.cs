@@ -52,45 +52,59 @@ namespace cc.bren.infman.workstation
 
         private PropertiesMode _propertiesMode;
         private WorkstationRepository _workstationRepository;
+        private Action _closeAction;
 
         public static WorkstationPropertiesViewModel ForAdd(
-            WorkstationRepository workstationRepository)
+            WorkstationRepository workstationRepository,
+            Action closeAction)
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+            if (closeAction == null) { throw new ArgumentNullException("closeAction"); }
 
             return new WorkstationPropertiesViewModel(
                 PropertiesMode.Add,
                 workstationRepository,
+                closeAction,
                 null);
         }
 
         public static WorkstationPropertiesViewModel ForEdit(
             WorkstationRepository workstationRepository,
+            Action closeAction,
             Guid workstationId)
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+            if (closeAction == null) { throw new ArgumentNullException("closeAction"); }
             if (workstationId == Guid.Empty) { throw new ArgumentException("Value cannot be empty.", "workstationId"); }
 
             return new WorkstationPropertiesViewModel(
                 PropertiesMode.Edit,
                 workstationRepository,
+                closeAction,
                 workstationId);
         }
 
         private WorkstationPropertiesViewModel(
             PropertiesMode propertiesMode,
             WorkstationRepository workstationRepository,
+            Action closeAction,
             Guid? workstationId)
         {
             if (propertiesMode == null) { throw new ArgumentNullException("propertiesMode"); }
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
+            if (closeAction == null) { throw new ArgumentNullException("closeAction"); }
 
             _propertiesMode = propertiesMode;
             _workstationRepository = workstationRepository;
+            _closeAction = closeAction;
 
             this.CommitCommand = new RelayCommand(
                 () => true,
                 this.Commit);
+
+            this.CancelCommand = new RelayCommand(
+                () => true,
+                this.Cancel);
 
             _propertiesMode.Apply(
                 add: () =>
@@ -162,6 +176,56 @@ namespace cc.bren.infman.workstation
 
         #endregion
 
+        #region CancelCommand
+
+        private ICommand _cancelCommand = null;
+        private bool _cancelCommand_set = false;
+
+        public ICommand CancelCommand
+        {
+            get
+            {
+                if (!_cancelCommand_set)
+                {
+                    throw new InvalidOperationException("cancelCommand not set.");
+                }
+                if (_cancelCommand == null)
+                {
+                    throw new InvalidOperationException("cancelCommand should not be null");
+                }
+                return _cancelCommand;
+            }
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", "cancelCommand cannot be null");
+                }
+                bool changing = !_cancelCommand_set || _cancelCommand != value;
+                if (changing)
+                {
+                    _cancelCommand_set = true;
+                    _cancelCommand = value;
+                }
+            }
+        }
+
+        private void ClearCancelCommand()
+        {
+            if (_cancelCommand_set)
+            {
+                _cancelCommand_set = false;
+                _cancelCommand = null;
+            }
+        }
+
+        private bool HasCancelCommand()
+        {
+            return _cancelCommand_set;
+        }
+
+        #endregion
+
         private Guid? WorkstationId { get; set; }
 
         #region Name
@@ -218,6 +282,13 @@ namespace cc.bren.infman.workstation
                         this.Name,
                         this.KeyPath));
                 });
+
+            _closeAction();
+        }
+
+        private void Cancel()
+        {
+            _closeAction();
         }
     }
 }

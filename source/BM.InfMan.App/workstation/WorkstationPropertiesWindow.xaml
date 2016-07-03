@@ -47,7 +47,7 @@
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="4,4,4,4" Text="{Binding KeyPath}" />
 
         <Button Content="OK" Grid.Row="3" Grid.Column="1" Margin="4,4,4,4" Command="{Binding CommitCommand}" />
-        <Button Content="Cancel" Grid.Row="3" Grid.Column="2" Margin="4,4,4,4" />
+        <Button Content="Cancel" Grid.Row="3" Grid.Column="2" Margin="4,4,4,4" Command="{Binding CancelCommand}" />
 
     </Grid>
 </Window>

@@ -53,16 +53,20 @@ namespace cc.bren.infman.workstation
 
         private WorkstationRepository _workstationRepository;
         private UserInterfaceService _userInterfaceService;
+        private Action _closeAction;
 
         public WorkstationListViewModel(
             WorkstationRepository workstationRepository,
-            UserInterfaceService userInterfaceService)
+            UserInterfaceService userInterfaceService,
+            Action closeAction)
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
             if (userInterfaceService == null) { throw new ArgumentNullException("userInterfaceService"); }
+            if (closeAction == null) { throw new ArgumentNullException("closeAction"); }
 
             _workstationRepository = workstationRepository;
             _userInterfaceService = userInterfaceService;
+            _closeAction = closeAction;
 
             this.AddCommand = new RelayCommand(
                 () => true,
@@ -144,7 +148,7 @@ namespace cc.bren.infman.workstation
 
         private void Close()
         {
-            Console.WriteLine("Close");
+            _closeAction();
         }
 
         private void WorkstationListViewModel_PropertyChanged(

@@ -30,13 +30,14 @@ namespace cc.bren.infman
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
 
-            WorkstationListViewModel vm = new WorkstationListViewModel(
-                workstationRepository,
-                this);
             WorkstationListWindow w = new WorkstationListWindow()
             {
                 Owner = UserInterfaceServiceImpl.FindActiveWindow()
             };
+            WorkstationListViewModel vm = new WorkstationListViewModel(
+                workstationRepository,
+                this,
+                w.Close);
             w.DataContext = vm;
             w.ShowDialog();
         }
@@ -46,12 +47,13 @@ namespace cc.bren.infman
         {
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
 
-            WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForAdd(
-                workstationRepository);
             WorkstationPropertiesWindow w = new WorkstationPropertiesWindow()
             {
                 Owner = UserInterfaceServiceImpl.FindActiveWindow()
             };
+            WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForAdd(
+                workstationRepository,
+                w.Close);
             w.DataContext = vm;
             w.ShowDialog();
         }
@@ -63,13 +65,14 @@ namespace cc.bren.infman
             if (workstationRepository == null) { throw new ArgumentNullException("workstationRepository"); }
             if (workstationId == Guid.Empty) { throw new ArgumentException("Value cannot be empty.", "workstationId"); }
 
-            WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForEdit(
-                workstationRepository,
-                workstationId);
             WorkstationPropertiesWindow w = new WorkstationPropertiesWindow()
             {
                 Owner = UserInterfaceServiceImpl.FindActiveWindow()
             };
+            WorkstationPropertiesViewModel vm = WorkstationPropertiesViewModel.ForEdit(
+                workstationRepository,
+                w.Close,
+                workstationId);
             w.DataContext = vm;
             w.ShowDialog();
         }
